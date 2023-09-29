@@ -1,24 +1,23 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import { NotFound } from './pages/NotFound';
+import { User } from './pages/User';
+import { Login } from './pages/Login';
+import { Registration } from './pages/Registration';
+import { Main } from './pages/Main';
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const ROUTES: Record<string, string> = {
+  '/not-found': NotFound(),
+  '/user': User(),
+  '/main': Main(),
+  '/registration': Registration(),
+  '/': Login(),
+}
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+
+window.addEventListener('DOMContentLoaded', () => {
+  const root = document.getElementById('app');
+
+  if (root) {
+    const component = ROUTES[window.location.pathname] || NotFound();
+    root.innerHTML = component;
+  }
+});
