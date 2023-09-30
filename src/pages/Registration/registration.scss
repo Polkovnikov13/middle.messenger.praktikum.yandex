@@ -1,0 +1,27 @@
+/* Registration Container Styles */
+.registration-container {
+  background-color:rgb(238, 102, 238);
+  font-size: 44px;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 40px;
+  width: 400px;
+  height: 700px;
+  margin: 75px auto 0;
+}
+
+.registration-title {
+  width: 80%;
+  margin: 40px auto;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  display: block;
+}
+
+.registration-link {
+  text-align: center;
+  margin-top: 30px;
+  display: block;
+}

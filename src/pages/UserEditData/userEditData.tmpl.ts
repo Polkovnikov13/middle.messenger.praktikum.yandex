@@ -1,37 +1,34 @@
 export const tmpl = `
 <div class="user-profile">
   <img src="https://sneg.top/uploads/posts/2023-06/1687806511_sneg-top-p-avatarka-zaglushka-pinterest-3.png" class="user-avatar" alt="no pic">
-  <div class="user-name">Иван</div>
   <div class="user-details">
     <div class="user-detail">
       <div class="detail-label">Почта</div>
-      <div class="detail-value">artem@yandex.ru</div>
+      {{{inputEmail}}}
     </div>
     <div class="user-detail">
       <div class="detail-label">Логин</div>
-      <div class="detail-value">Логин</div>
+       {{{inputLogin}}}
     </div>
     <div class="user-detail">
       <div class="detail-label">Имя</div>
-      <div class="detail-value">Иван</div>
+     {{{inputName}}}
     </div>
     <div class="user-detail">
       <div class="detail-label">Фамилия</div>
-      <div class="detail-value">Иванов</div>
+      {{{inputSecondName}}}
     </div>
     <div class="user-detail">
       <div class="detail-label">Имя в чате</div>
-      <div class="detail-value">Иван</div>
+      {{{inputDisplayName}}}
     </div>
     <div class="user-detail">
       <div class="detail-label">Телефон</div>
-      <div class="detail-value">+799972223331</div>
+        {{{inputPhone}}}
     </div>
   </div>
-  <div class="user-actions">
-    <div class="edit-data">{{{editUserMainLink}}}</div>
-    <div class="change-password">{{{editUserPasswordLink}}}</div>
-    <div class="logout">{{{exitLink}}}</div>
+  <div class="user-detail-button">
+  {{{saveButton}}}
   </div>
 </div>
 `;

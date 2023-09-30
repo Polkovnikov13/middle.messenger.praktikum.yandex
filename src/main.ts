@@ -3,6 +3,8 @@ import { User } from './pages/User';
 import { Login } from './pages/Login';
 import { Registration } from './pages/Registration';
 import { Main } from './pages/Main';
+import { UserEditData } from './pages/UserEditData';
+import { UserEditPassword } from './pages/UserEditPassword';
 
 const ROUTES: Record<string, string> = {
   '/not-found': NotFound(),
@@ -10,6 +12,8 @@ const ROUTES: Record<string, string> = {
   '/main': Main(),
   '/registration': Registration(),
   '/': Login(),
+  '/user-edit-data': UserEditData(),
+  '/user-edit-password': UserEditPassword(),
 }
 
 

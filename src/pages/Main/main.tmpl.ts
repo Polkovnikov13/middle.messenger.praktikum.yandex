@@ -1,5 +1,5 @@
 export const tmpl = `
 <div>
-Main Page
+Здесь будет чат
 </div>`
 ;

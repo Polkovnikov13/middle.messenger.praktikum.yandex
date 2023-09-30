@@ -1,5 +1,4 @@
 import Handlebars from 'handlebars';
-
 import { tmpl } from './link.tmpl';
 
 interface LinkProps {
