@@ -1,6 +1,7 @@
 import {resolve} from 'path';
 import {defineConfig} from 'vite'
 import handlebars from 'vite-plugin-handlebars';
+import copy from 'rollup-plugin-copy';
 
 
 export default defineConfig({
@@ -10,6 +11,11 @@ export default defineConfig({
         outDir: resolve(__dirname, 'dist'),
     },
     plugins: [
+    copy({
+      targets: [
+        { src: 'src/assets/avatars', dest: 'dist/images' }, 
+      ],
+    }),
         handlebars() as Plugin,
     ],
 })
