@@ -7,3 +7,4 @@ export const tmpl = `
   <button class="return-button">{{{mainPageLink}}}</button>
 </div>
 `;
+
