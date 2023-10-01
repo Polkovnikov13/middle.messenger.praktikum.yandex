@@ -5,9 +5,11 @@ import { Registration } from './pages/Registration';
 import { Main } from './pages/Main';
 import { UserEditData } from './pages/UserEditData';
 import { UserEditPassword } from './pages/UserEditPassword';
+import { ErrorPage } from './pages/ErrorPage';
 
 const ROUTES: Record<string, string> = {
   '/not-found': NotFound(),
+  '/not-working': ErrorPage(),
   '/user': User(),
   '/main': Main(),
   '/registration': Registration(),

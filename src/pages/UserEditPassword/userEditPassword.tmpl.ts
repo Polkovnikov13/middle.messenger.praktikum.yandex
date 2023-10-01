@@ -1,7 +1,7 @@
 export const tmpl = `
 <div class="user-profile">
-  <img src="https://sneg.top/uploads/posts/2023-06/1687806511_sneg-top-p-avatarka-zaglushka-pinterest-3.png" class="user-avatar" alt="no pic">
- 
+     {{{avaAvatar}}}
+     <form>
   <div class="user-details">
     <div class="user-detail">
       <div class="detail-label">Старый пароль</div>
@@ -19,5 +19,6 @@ export const tmpl = `
   <div class="user-detail-button">
   {{{saveButton}}}
   </div>
+</form>
 </div>
 `;

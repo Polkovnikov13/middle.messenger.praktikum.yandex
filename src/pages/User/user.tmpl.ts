@@ -1,6 +1,6 @@
 export const tmpl = `
 <div class="user-profile">
-  <img src="https://sneg.top/uploads/posts/2023-06/1687806511_sneg-top-p-avatarka-zaglushka-pinterest-3.png" class="user-avatar" alt="no pic">
+        {{{avaAvatar}}}
   <div class="user-name">Иван</div>
   <div class="user-details">
     <div class="user-detail">

@@ -4,18 +4,14 @@ import handlebars from 'vite-plugin-handlebars';
 
 
 export default defineConfig({
-    root: resolve(__dirname, ''),
+    root: resolve(__dirname, 'src'),
     publicDir:resolve(__dirname, 'public'),
     build: {
         outDir: resolve(__dirname, 'dist'),
     },
     plugins: [
-        handlebars({}) as Plugin,
+        handlebars() as Plugin,
     ],
 })
 
 
-
-// export default {
-//   plugins: [handlebars()],
-// };

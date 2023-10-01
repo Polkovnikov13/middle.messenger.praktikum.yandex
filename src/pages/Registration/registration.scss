@@ -1,6 +1,7 @@
-/* Registration Container Styles */
+@import '../../styles/constants.scss';
+
 .registration-container {
-  background-color:rgb(238, 102, 238);
+  background-color:var(--main-color);
   font-size: 44px;
   text-align: center;
   border: 2px solid black;

@@ -1,5 +1,7 @@
+@import '../../styles/constants.scss';
+
 .user-profile {
-  background-color: rgb(238, 102, 238);
+  background-color: var(--main-color);
   font-size: 44px;
   text-align: center;
   border: 2px solid black;
@@ -11,8 +13,8 @@
 }
 
 .user-avatar {
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
   margin: 0 auto 20px;
 }
@@ -27,7 +29,7 @@
   flex-direction: column;
   align-items: center;
   font-size: 16px;
-  margin-top: 50px;
+  margin-top: 25px;
 }
 
 .user-detail {
@@ -46,7 +48,7 @@
 }
 
 .user-actions {
-  margin-top: 45px; /* Уменьшаем отступ сверху для поднятия элементов */
+  margin-top: 45px;
 }
 
 .edit-data,
