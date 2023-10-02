@@ -4,7 +4,7 @@
   background-color:var(--main-color);
   font-size: 44px;
   text-align: center;
-  border: 2px solid black;
+  border: 2px solid var(--black);
   border-radius: 5px;
   padding: 40px;
   width: 400px;
@@ -15,7 +15,7 @@
 .registration-title {
   width: 80%;
   margin: 40px auto;
-  border: 2px solid black;
+  border: 2px solid var(--black);
   border-radius: 5px;
   padding: 10px;
   display: block;

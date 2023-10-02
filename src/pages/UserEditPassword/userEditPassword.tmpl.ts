@@ -1,7 +1,7 @@
 export const tmpl = `
 <div class="user-profile">
+  <form onsubmit="">
      {{{avaAvatar}}}
-     <form>
   <div class="user-details">
     <div class="user-detail">
       <div class="detail-label">Старый пароль</div>

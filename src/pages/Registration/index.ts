@@ -1,8 +1,8 @@
 import Handlebars from 'handlebars';
 import './registration.scss'
 import { tmpl } from './registration.tmpl';
-import { Link } from '../../components/Link';
 import { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
 
 export const Registration = () => {
   return Handlebars.compile(tmpl)({
@@ -13,6 +13,6 @@ export const Registration = () => {
   inputPhone: Input({placeholder: 'Телефон...',name: 'phone',value: '',type:"text",class:'registration-title'}),
   inputPassword: Input({placeholder: 'Пароль...',name: 'password',value: '',type:"password",class:'registration-title'}),
   inputConfirmPassword: Input({placeholder: 'Пароль еще раз...',name: 'confirm_password',value: '',type:"password",class:'registration-title'}),
-  userPageLink: Link({ to: '/main', text: 'Зарегистрироваться'}),
+  MainButton: Button({ type: 'submit', text: 'Авторизоваться'}),
   });
 };
