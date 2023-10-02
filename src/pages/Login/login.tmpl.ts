@@ -1,11 +1,11 @@
 export const tmpl = `
 <div class="login-container">Вход
-<form>
+<form onsubmit="" >
   {{{inputLogin}}}
   {{{inputPassword}}}
-  <div class="login-link">
-    {{{userPageLink}}}
-    {{{registrationPageLink}}}
+  <div class="login-button">
+    {{{MainButton}}}
+    <a href="/registration">{{{RegistrationButton}}}</a>
   </div>
    </form>
 </div>

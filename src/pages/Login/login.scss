@@ -4,7 +4,7 @@
   background-color: var(--main-color);
   font-size: 44px;
   text-align: center;
-  border: 2px solid black;
+  border: 2px solid var(--black);
   border-radius: 5px;
   padding: 40px; 
   width: 400px;
@@ -15,16 +15,23 @@
 .login-title {
   width: 80%; 
   margin: 40px auto;
-  border: 2px solid black;
+  border: 2px solid var(--black);
   border-radius: 5px;
   padding: 20px;
   display: block;
 }
 
-.login-link {
+.login-button {
   text-align: center;
   margin-top: 130px;
   display: block;
+}
+
+.login-button button {
+  display: block;
+  margin: 20px auto; 
+  width: 300px;
+  height: 50px;
 }
 
 
