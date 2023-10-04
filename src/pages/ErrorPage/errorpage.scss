@@ -1,0 +1,19 @@
+@import '../../styles/constants.scss';
+
+.not-found-page {
+  font-size: 44px;
+  text-align: center;
+  padding: 40px;
+  max-width: 400px;
+  height: 500px;
+  margin: 150px auto 0;
+}
+
+.return-button {
+  text-align: center;
+  margin-top: 13px;
+  display: inline-block;
+  background-color: var(--transparent);
+  border: none;
+}
+

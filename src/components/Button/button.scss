@@ -1,0 +1,17 @@
+@import '../../styles/constants.scss';
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  border:black;
+  border-radius: 4px ;
+
+  &:hover {
+    background-color:var(--black);
+    color: var(--white);
+  }
+}

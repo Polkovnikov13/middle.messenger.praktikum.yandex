@@ -1,0 +1,28 @@
+@import '../../styles/constants.scss';
+
+.registration-container {
+  background-color:var(--main-color);
+  font-size: 44px;
+  text-align: center;
+  border: 2px solid var(--black);
+  border-radius: 5px;
+  padding: 40px;
+  width: 400px;
+  height: 700px;
+  margin: 75px auto 0;
+}
+
+.registration-title {
+  width: 80%;
+  margin: 40px auto;
+  border: 2px solid var(--black);
+  border-radius: 5px;
+  padding: 10px;
+  display: block;
+}
+
+.registration-link {
+  text-align: center;
+  margin-top: 30px;
+  display: block;
+}
