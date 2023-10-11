@@ -7,23 +7,25 @@ import { UserEditData } from './pages/UserEditData';
 import { UserEditPassword } from './pages/UserEditPassword';
 import { ErrorPage } from './pages/ErrorPage';
 
-const ROUTES: Record<string, string> = {
-  '/not-found': NotFound(),
-  '/not-working': ErrorPage(),
-  '/user': User(),
-  '/main': Main(),
-  '/registration': Registration(),
-  '/': Login(),
-  '/user-edit-data': UserEditData(),
-  '/user-edit-password': UserEditPassword(),
-}
-
+const ROUTES: Record<string, any> = {
+  '/not-found': NotFound,
+  '/not-working': ErrorPage,
+  '/user': User,
+  '/main': Main,
+  '/registration': Registration,
+  '/': Login,
+  '/user-edit-data': UserEditData,
+  '/user-edit-password': UserEditPassword,
+};
 
 window.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('app');
-
   if (root) {
-    const component = ROUTES[window.location.pathname] || NotFound();
-    root.innerHTML = component;
+    const ComponentConstructor = ROUTES[window.location.pathname] || NotFound;
+    if (ComponentConstructor) {
+      const component = new ComponentConstructor();
+      root.appendChild(component.element);
+      component.dispatchComponentDidMount();
+    }
   }
 });

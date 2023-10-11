@@ -1,7 +1,11 @@
-import Handlebars from 'handlebars';
+import Block from '../../utils/Block';
 
-import { tmpl } from './main.tmpl';
+export class Main extends Block{
+  constructor(){
+  super('div', {tittle: 'Здесь  Page чат'})
+  }
 
-export const Main = () => {
-  return Handlebars.compile(tmpl)({});
-};
+  render(){
+  return this.compile('<h1>{{tittle}}</h1>',this.props)
+  }
+}
