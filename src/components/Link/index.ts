@@ -11,7 +11,7 @@ interface LinkProps {
 
 export class Link extends Block{
   constructor(props:LinkProps) {
-  super('link',props)
+  super('div',props)
   }
 
   render(){

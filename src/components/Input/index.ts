@@ -3,15 +3,16 @@ import Block from '../../utils/Block'
 interface InputProps {
   name: string;
   type: string;
+  class: string;
   placeholder: string; 
   value?: string;
   events?: {
   click:()=>void
   }
 }
-export class Input extends  Block{
+export class Input extends Block{
   constructor(props:InputProps) {
-  super('input',props)
+  super('div',props)
   }
 
   //  get isValid() {
@@ -19,6 +20,6 @@ export class Input extends  Block{
   // }
 
   render(){
-  return this.compile('', this.props)
+  return this.compile(tmpl, this.props)
   }
 }

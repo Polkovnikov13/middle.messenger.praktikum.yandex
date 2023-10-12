@@ -3,7 +3,6 @@ import './login.scss' ;
 import { tmpl} from './login.tmpl'
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
-import { Link } from '../../components/Link';
 
 export class Login extends Block{
   constructor(){
@@ -11,31 +10,34 @@ export class Login extends Block{
   }
 
   init() {
-
     this.children.login = new Input({
+      class:'login-title',
       name: 'login',
       type: 'text',
       placeholder: 'Логин...'
     });
     this.children.password = new Input({
+      class:'login-title',
       name: 'password',
       type: 'password',
       placeholder: 'Пароль...'
     });
      this.children.button = new Button({
+      class:'login-button',
       type: 'submit',
       label: 'Авторизоваться',
       events: { click: () => console.log('Авторизоваться!') },
     });
-     this.children.link = new Link({
-      to: '/registration',
-      text:'Регистрация'
+     this.children.buttonLink = new Button({
+      class:'login-button',
+      type: 'button',
+      label: 'Регистрация',
+      events: { click: () => console.log('Регистрация!') },
      })
   } 
 
   render(){
-  return this.compile(tmpl
-  ,this.props)
+  return this.compile(tmpl,this.props)
   }
 }
 

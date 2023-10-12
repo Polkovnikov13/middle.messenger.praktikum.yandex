@@ -6,14 +6,15 @@ import './button.scss'
 interface ButtonProps {
   type?: string;
   label: string;
-  events: {
+  class?: string;
+  events?: {
   click:()=>void
   }
 }
 
 export class Button extends Block{
   constructor(props:ButtonProps) {
-  super('button',props)
+  super('div',props)
   }
 
   render(){
