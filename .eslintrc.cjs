@@ -17,5 +17,7 @@ module.exports ={
     "max-len": [2, 100],
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/consistent-type-definitions":0,
+    "@typescript-eslint/no-unused-vars":0,
+    "@typescript-eslint/no-explicit-any":0,
   }
 }

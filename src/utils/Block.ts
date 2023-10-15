@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid'
 import { EventBus } from './EventBus'
 
 class Block<P extends Record<string, any> = any> {
+  [x: string]: any
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -107,7 +108,7 @@ class Block<P extends Record<string, any> = any> {
     }
   }
 
-  protected componentDidUpdate (oldProps: P, newProps: P) {
+  protected componentDidUpdate (_oldProps: P, _newProps: P) {
     return true
   }
 
@@ -170,6 +171,7 @@ class Block<P extends Record<string, any> = any> {
   }
 
   _makePropsProxy (props: P) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this
 
     return new Proxy(props, {

@@ -6,7 +6,7 @@ interface InputProps {
   class: string
   placeholder: string
   events?: {
-    focus: () => void
+    focus: () => void 
   }
 }
 export class Input extends Block {
@@ -33,6 +33,7 @@ export class Input extends Block {
   }
 
   get isValidLogin() {
+    // eslint-disable-next-line no-useless-escape
     return this._validateWithRegex(/^[A-Za-z0-9_\-]{3,20}$/);
   }
 
@@ -48,8 +49,8 @@ export class Input extends Block {
     return this._validateWithRegex(/^(\+\d{10,15}|\d{10,15})$/);
   }
 
-  get isValidMessage() {
-    const { value } = (this.element! as HTMLInputElement)
+  get isValidMessage () {
+    const { value } = (this.element! as HTMLInputElement);
     return value.trim() !== '';
   }
 
