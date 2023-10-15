@@ -1,11 +1,11 @@
-{
+module.exports ={
   "env": {
     "browser": true,
     "es2021": true
   },
   "extends": [
-    "standard-with-typescript",
-    "airbnb"
+   "eslint:recommended",
+   "plugin:@typescript-eslint/recommended",
   ],
   "overrides": [],
   "parserOptions": {
@@ -15,7 +15,7 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "max-len": [2, 100],
-    "@typescript-eslint/no-unused-vars": 2
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/consistent-type-definitions":0,
   }
 }
-

@@ -1,20 +1,20 @@
-import { tmpl } from './link.tmpl';
-import Block from '../../utils/Block';
+import { tmpl } from './link.tmpl'
+import Block from '../../utils/Block'
 
 interface LinkProps {
-  to: string;
-  text: string;
+  to: string
+  text: string
   events?: {
-    click: () => void;
-  };
+    click: () => void
+  }
 }
 
-export class Link extends Block{
-  constructor(props:LinkProps) {
-  super('div',props)
+export class Link extends Block {
+  constructor (props: LinkProps) {
+    super('div', props);
   }
 
-  render(){
-  return this.compile(tmpl, this.props)
+  render () {
+    return this.compile(tmpl, this.props);
   }
 }

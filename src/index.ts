@@ -2,7 +2,7 @@ import { NotFound } from './pages/NotFound';
 import { User } from './pages/User';
 import { Login } from './pages/Login';
 import { Registration } from './pages/Registration';
-import { Main } from './pages/Main';
+import { Chat } from './pages/Chat';
 import { UserEditData } from './pages/UserEditData';
 import { UserEditPassword } from './pages/UserEditPassword';
 import { ErrorPage } from './pages/ErrorPage';
@@ -11,11 +11,11 @@ const ROUTES: Record<string, any> = {
   '/not-found': NotFound,
   '/not-working': ErrorPage,
   '/user': User,
-  '/main': Main,
+  '/main': Chat,
   '/registration': Registration,
   '/': Login,
   '/user-edit-data': UserEditData,
-  '/user-edit-password': UserEditPassword,
+  '/user-edit-password': UserEditPassword
 };
 
 window.addEventListener('DOMContentLoaded', () => {

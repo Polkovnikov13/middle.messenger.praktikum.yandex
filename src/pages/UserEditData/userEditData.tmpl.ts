@@ -1,6 +1,6 @@
 export const tmpl = `
 <div class="user-profile">
- <form onsubmit="">
+ <form onsubmit="event.preventDefault();">
       {{{avaAvatar}}} 
   <div class="user-details">
     <div class="user-detail">
@@ -33,4 +33,4 @@ export const tmpl = `
   </div>
 </form>
  </div>
-`;
+`

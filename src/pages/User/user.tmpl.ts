@@ -34,4 +34,4 @@ export const tmpl = `
     <div class="logout">{{{exitLink}}}</div>
   </div>
 </div>
-`;
+`

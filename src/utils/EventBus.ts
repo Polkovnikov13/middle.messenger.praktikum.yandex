@@ -1,4 +1,4 @@
-type Handler<A extends any[] = unknown[]> = (...args: A) => void;
+type Handler<A extends any[] = unknown[]> = (...args: A) => void
 type MapInterface<P> = P[keyof P]
 
 export class EventBus<
@@ -6,14 +6,13 @@ export class EventBus<
   Args extends Record<MapInterface<E>, any[]> = Record<string, any[]>
 > {
   private readonly listeners: {
-    [K in MapInterface<E>]?: Handler<Args[K]>[]
+    [K in MapInterface<E>]?: Array<Handler<Args[K]>>
   } = {};
 
   on<Event extends MapInterface<E>>(event: Event, callback: Handler<Args[Event]>) {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
-
 
     this.listeners[event]?.push(callback);
   }
@@ -24,7 +23,7 @@ export class EventBus<
     }
 
     this.listeners[event] = this.listeners[event]!.filter(
-      listener => listener !== callback
+      (listener) => listener !== callback
     );
   }
 
@@ -33,8 +32,8 @@ export class EventBus<
       return;
     }
 
-    this.listeners[event]!.forEach(listener => {
+    this.listeners[event]!.forEach((listener) => {
       listener(...args);
-    });
+    })
   }
 }
