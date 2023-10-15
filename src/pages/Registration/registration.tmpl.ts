@@ -1,6 +1,6 @@
 export const tmpl = `
 <div class="registration-container">Регистрация
-<form onsubmit="">
+<form onsubmit="event.preventDefault();">
   {{{inputEmail}}}
   {{{inputLogin}}}
   {{{inputName}}}
@@ -13,4 +13,4 @@ export const tmpl = `
   </div>
 </form>
 </div>
-`;
+`

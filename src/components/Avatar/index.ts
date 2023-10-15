@@ -1,13 +1,19 @@
-import Handlebars from 'handlebars';
-import { tmpl } from './input.tmpl';
+import { tmpl } from './avatar.tmpl'
+import Block from '../../utils/Block'
 
 interface AvatarProps {
-  imageName: string;
-  imageText: string;
-  imageClass: string;
- 
+  imageName: string
+  imageText?: string
+  imageClass?: string
+
 }
 
-export const Avatar = (props: AvatarProps) => {
-  return Handlebars.compile(tmpl)(props);
-};
+export class Avatar extends Block {
+  constructor (props: AvatarProps) {
+    super('div', props)
+  }
+
+  render () {
+    return this.compile(tmpl, this.props);
+  }
+}
