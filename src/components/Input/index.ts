@@ -33,6 +33,7 @@ export class Input extends Block {
   }
 
   get isValidLogin() {
+    // eslint-disable-next-line no-useless-escape
     return this._validateWithRegex(/^[A-Za-z0-9_\-]{3,20}$/);
   }
 
