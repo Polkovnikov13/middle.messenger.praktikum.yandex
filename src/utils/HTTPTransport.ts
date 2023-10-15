@@ -24,6 +24,7 @@ class HTTPTransport {
 
       if (options.headers) {
         for (const key in options.headers) {
+          // eslint-disable-next-line no-prototype-builtins
           if (options.headers.hasOwnProperty(key)) {
             xhr.setRequestHeader(key, options.headers[key]);
           }
@@ -49,20 +50,32 @@ class HTTPTransport {
     });
   }
 
-  get(url: string, options: Options = {}): Promise<string> {
+  get(url: string, options: Options = {
+    method: ""
+  }): Promise<string> {
     return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
   }
 
-  put(url: string, options: Options = {}): Promise<string> {
+  put(url: string, options: Options = {
+    method: ""
+  }): Promise<string> {
     return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
   }
 
-  post(url: string, options: Options = {}): Promise<string> {
+  post(url: string, options: Options = {
+    method: ""
+  }): Promise<string> {
     return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
   }
 
-  delete(url: string, options: Options = {}): Promise<string> {
+  delete(url: string, options: Options = {
+    method: ""
+  }): Promise<string> {
     return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
   }
+}
+
+function queryStringify(data: Record<string, any>) {
+  throw new Error("Function not implemented.");
 }
 
