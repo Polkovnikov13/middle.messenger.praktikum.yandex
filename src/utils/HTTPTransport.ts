@@ -75,7 +75,7 @@ class HTTPTransport {
   }
 }
 
-function queryStringify(data: Record<string, any>) {
+function queryStringify(_data: Record<string, any>) {
   throw new Error("Function not implemented.");
 }
 
