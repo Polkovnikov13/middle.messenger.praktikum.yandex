@@ -1,4 +1,8 @@
+import { Button } from '../../components/Button';
+import { Input } from '../../components/Input';
 import Block from '../../utils/Block';
+import { tmpl } from './registration.tmpl'
+import './registration.scss'
 
 export class Registration extends Block{
 constructor(){
