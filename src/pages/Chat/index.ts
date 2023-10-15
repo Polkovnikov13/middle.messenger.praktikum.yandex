@@ -20,6 +20,7 @@ export class Chat extends Block {
       name: 'lenta-message',
       type: 'text',
       placeholder: 'Поиск...',
+   
       events: {
       focus: () => { console.log(this.children.inputDialog.takeValue); },
   }, 

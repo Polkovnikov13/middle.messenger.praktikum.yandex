@@ -6,7 +6,7 @@ interface InputProps {
   class: string
   placeholder: string
   events?: {
-    focus: () => void
+    focus: () => void 
   }
 }
 export class Input extends Block {
@@ -49,10 +49,7 @@ export class Input extends Block {
     return this._validateWithRegex(/^(\+\d{10,15}|\d{10,15})$/);
   }
 
-  get isValidMessage() {
-    const { value } = (this.element! as HTMLInputElement)
-    return value.trim() !== '';
-  }
+
 
   render() {
     return this.compile('', this.props)
