@@ -101,5 +101,17 @@
     background-color: var(--chat-button);
 }
 
+#chat-message-error {
+  color: var(--valdation-error);
+  font-size: 20px;
+  display: block;
+  margin-bottom: 20px;
+  position: absolute;
+  top: 880px; 
+  left: 640px;
+}
 
+  #chat-message-error.hidden {
+    display: none;
+  }
 

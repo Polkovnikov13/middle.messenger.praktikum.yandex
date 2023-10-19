@@ -28,6 +28,7 @@ export const tmpl = `
             {{{messageAnswer}}}
                 
         </div>
+        <span id="chat-message-error"></span>
         <div class="chat-message-input">
             {{{inputMessage}}}
             {{{MessageButton}}}

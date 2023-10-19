@@ -3,10 +3,11 @@ import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
 import { Avatar } from '../../components/Avatar'
 import Block from '../../utils/Block'
+import './userEditPassword.scss'
 
 export class UserEditPassword extends Block {
   constructor () {
-    super('div', { titte: '1' });
+    super('div', {});
   }
 
   init () {
@@ -21,7 +22,8 @@ export class UserEditPassword extends Block {
       type: 'password',
       class: 'transparent-input',
       events: {
-        focus: () => { console.log(this.children.inputOldPassword.isValidPassword) }
+        focus: () => { console.log(this.children.inputOldPassword.isValidPassword) },
+        blur: () => { this.handleOldPasswordValidation(); }
       },
     });
     this.children.inputNewPassword = new Input({
@@ -30,7 +32,8 @@ export class UserEditPassword extends Block {
       type: 'password',
       class: 'input-edit',
       events: {
-        focus: () => { console.log(this.children.inputNewPassword.isValidPassword) }
+        focus: () => { console.log(this.children.inputNewPassword.isValidPassword) },
+        blur: () => { this.handleNewPasswordValidation(); }
       },
     });
     this.children.inputNewRepeatPassword = new Input({
@@ -39,7 +42,8 @@ export class UserEditPassword extends Block {
       type: 'password',
       class: 'input-edit',
       events: {
-        focus: () => { console.log(this.children.inputNewRepeatPassword.isValidPassword) }
+        focus: () => { console.log(this.children.inputNewRepeatPassword.isValidPassword) },
+         blur: () => { this.handleNewRepeatPasswordValidation(); }
       },
     });
     this.children.saveButton = new Button({
@@ -48,6 +52,46 @@ export class UserEditPassword extends Block {
       events: { click: () => { this.handleSubmit(); } }
   });
   }
+handleNewRepeatPasswordValidation(){
+  const errorMessage = document.getElementById('error-message-NewRepeatpassword');
+   if (!this.children.inputNewRepeatPassword.isValidPassword) {
+   if (errorMessage) { 
+      errorMessage.textContent = 'От 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра';
+      errorMessage.style.color = 'red'; 
+    }
+  } else {
+    if (errorMessage) {
+      errorMessage.textContent = '';
+    }
+  }
+}
+
+handleOldPasswordValidation() {
+  const errorMessage = document.getElementById('error-message-Oldpassword');
+   if (!this.children.inputOldPassword.isValidPassword) {
+   if (errorMessage) { 
+      errorMessage.textContent = 'От 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра';
+      errorMessage.style.color = 'red'; 
+    }
+  } else {
+    if (errorMessage) {
+      errorMessage.textContent = '';
+    }
+  }
+}
+handleNewPasswordValidation() {
+  const errorMessage = document.getElementById('error-message-Newpassword');
+   if (!this.children.inputNewPassword.isValidPassword) {
+   if (errorMessage) { 
+      errorMessage.textContent = 'От 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра';
+      errorMessage.style.color = 'red'; 
+    }
+  } else {
+    if (errorMessage) {
+      errorMessage.textContent = '';
+    }
+  }
+}
 
   handleSubmit () {
   if(this.children.inputOldPassword.isValidPassword && 
@@ -62,7 +106,6 @@ export class UserEditPassword extends Block {
   } else {
   console.log("Некорректно")
   }
-
   }
 
   render () {

@@ -31,6 +31,7 @@ export class Chat extends Block {
       placeholder: 'Сообщение...',
       events: {
       focus: () => { console.log(this.children.inputMessage.isValidMessage); },
+      blur: () => { this.handleMessageValidation(); }
   }, 
 })
     this.children.userAvatar = new Avatar({
@@ -58,6 +59,21 @@ export class Chat extends Block {
     class: "chat-message-item chat-message-sent",
     text: "User 1: Hello!",
     })
+    }
+
+    handleMessageValidation() {
+    const errorMessage = document.getElementById('chat-message-error');
+        if (!this.children.inputMessage.isValidMessage) {
+        if (errorMessage) { 
+      errorMessage.classList.remove('visible'); 
+      // eslint-disable-next-line max-len
+      errorMessage.textContent = 'Сообщение не должно быть пустым!Введите текст';
+    }
+  } else {
+    if (errorMessage) {
+      errorMessage.classList.add('hidden');
+    }
+        }
     }
 
     render() {

@@ -16,7 +16,8 @@ export class Login extends Block {
       type: 'text',
       placeholder: 'Логин...',
       events: {
-        focus: () => { console.log(this.children.inputLogin.isValidLogin) }
+        focus: () => { console.log(this.children.inputLogin.isValidLogin) },
+         blur: () => { this.handleLoginValidation(); }
       },
     });
     this.children.inputPassword = new Input({
@@ -25,7 +26,8 @@ export class Login extends Block {
       type: 'password',
       placeholder: 'Пароль...',
       events: {
-        focus: () => { console.log(this.children.inputPassword.isValidPassword) }
+        focus: () => { console.log(this.children.inputPassword.isValidPassword) },
+        blur: () => { this.handlePasswordValidation(); }
       },
     });
     this.children.button = new Button({
@@ -40,6 +42,34 @@ export class Login extends Block {
      });
   }
 
+handleLoginValidation() {
+  const errorMessage = document.getElementById('error-message-login');
+  if (!this.children.inputLogin.isValidLogin) {
+    if (errorMessage) { 
+      errorMessage.classList.remove('visible'); 
+      // eslint-disable-next-line max-len
+      errorMessage.textContent = ' от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)';
+    }
+  } else {
+    if (errorMessage) {
+      errorMessage.classList.add('hidden');
+    }
+  }
+}
+
+handlePasswordValidation() {
+  const errorMessage = document.getElementById('error-message-password');
+   if (!this.children.inputPassword.isValidPassword) {
+   if (errorMessage) { 
+      errorMessage.classList.remove('visible');
+      errorMessage.textContent = 'От 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра';
+    }
+  } else {
+    if (errorMessage) {
+      errorMessage.classList.add('hidden');
+    }
+  }
+}
   handleSubmit () {
   if(this.children.inputPassword.isValidPassword && this.children.inputLogin.isValidLogin) {
       const formData = {

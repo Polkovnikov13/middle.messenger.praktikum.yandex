@@ -1,12 +1,20 @@
 import Block from '../../utils/Block'
 
 interface InputProps {
+  hasValidationErrorFirstSecondName?: boolean
+  hasValidationErrorLogin?: boolean
+  hasValidationErrorPassword?: boolean
+  hasValidationErrorEmail?: boolean
+  hasValidationErrorPhone?: boolean
+  hasValidationErrorMessage?: boolean
   name: string
   type: string
   class: string
+  id?: string
   placeholder: string
   events?: {
-    focus: () => void 
+    focus: () => void;
+    blur?: () => void; 
   }
 }
 export class Input extends Block {
@@ -18,7 +26,7 @@ export class Input extends Block {
     this.element!.setAttribute('name', props.name);
     this.element!.setAttribute('type', props.type);
   }
-
+  
   get takeValue() {
     return (this.element! as HTMLInputElement).value
   }
@@ -29,29 +37,48 @@ export class Input extends Block {
   }
 
   get isValidNameFirstSecondName() {
-    return this._validateWithRegex(/^[А-ЯЁA-Z][а-яёa-z-]*$/);
+    const isVal =  this._validateWithRegex(/^[А-ЯЁA-Z][а-яёa-z-]*$/);
+    // eslint-disable-next-line max-len
+    if(isVal && this.props.hasValidationErrorFirstSecondName) this.setProps({ hasValidationErrorFirstSecondName: false});
+    if(!isVal) this.setProps({ hasValidationErrorFirstSecondName: true});
+    return isVal
   }
 
   get isValidLogin() {
     // eslint-disable-next-line no-useless-escape
-    return this._validateWithRegex(/^[A-Za-z0-9_\-]{3,20}$/);
+    const isVal = this._validateWithRegex(/^[A-Za-z0-9_\-]{3,20}$/);
+    if(isVal && this.props.hasValidationErrorLogin) this.setProps({ hasValidationErrorLogin: false});
+    if(!isVal) this.setProps({ hasValidationErrorLogin: true});
+    return isVal
   }
 
   get isValidEmail() {
-    return this._validateWithRegex(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/);
+    const isVal =  this._validateWithRegex(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/); 
+    if(isVal && this.props.hasValidationErrorEmail) this.setProps({ hasValidationErrorEmail: false});
+    if(!isVal) this.setProps({ hasValidationErrorEmail: true});
+    return isVal
   }
 
   get isValidPassword() {
-    return this._validateWithRegex(/^(?=.*[A-Z])(?=.*\d).{8,40}$/);
+    const isVal = this._validateWithRegex(/^(?=.*[A-Z])(?=.*\d).{8,40}$/);
+    if(isVal && this.props.hasValidationErrorPassword) this.setProps({ hasValidationErrorPassword: false});
+    if(!isVal) this.setProps({ hasValidationErrorPassword: true});
+    return isVal
   }
 
   get isValidPhone() {
-    return this._validateWithRegex(/^(\+\d{10,15}|\d{10,15})$/);
+    const isVal = this._validateWithRegex(/^(\+\d{10,15}|\d{10,15})$/);
+    if(isVal && this.props.hasValidationErrorPhone) this.setProps({ hasValidationErrorPhone: false});
+    if(!isVal) this.setProps({ hasValidationErrorPhone: true});
+    return isVal
   }
 
   get isValidMessage () {
     const { value } = (this.element! as HTMLInputElement);
-    return value.trim() !== '';
+    const isVal =  value.trim() !== '';
+    if(isVal && this.props.hasValidationErrorMessage) this.setProps({ hasValidationErrorMessage: false});
+    if(!isVal) this.setProps({ hasValidationErrorMessage: true});
+    return isVal
   }
 
   render() {
