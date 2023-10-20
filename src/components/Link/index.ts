@@ -1,11 +1,20 @@
-import Handlebars from 'handlebars';
-import { tmpl } from './link.tmpl';
+import { tmpl } from './link.tmpl'
+import Block from '../../utils/Block'
 
 interface LinkProps {
-  to: string;
-  text: string;
+  to: string
+  text: string
+  events?: {
+    click: () => void
+  }
 }
 
-export const Link = (props: LinkProps) => {
-  return Handlebars.compile(tmpl)(props);
-};
+export class Link extends Block {
+  constructor (props: LinkProps) {
+    super('div', props);
+  }
+
+  render () {
+    return this.compile(tmpl, this.props);
+  }
+}

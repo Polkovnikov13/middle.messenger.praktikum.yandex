@@ -1,7 +1,7 @@
 export const tmpl = `
 <div class="user-profile">
         {{{avaAvatar}}}
-  <div class="user-name">Иван</div>
+  <div class="user-name">Артем</div>
   <div class="user-details">
     <div class="user-detail">
       <div class="detail-label">Почта</div>
@@ -34,4 +34,5 @@ export const tmpl = `
     <div class="logout">{{{exitLink}}}</div>
   </div>
 </div>
-`;
+`
+

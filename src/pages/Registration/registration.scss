@@ -12,9 +12,20 @@
   margin: 75px auto 0;
 }
 
+  span {
+    color: var(--valdation-error);
+    font-size: 12px;
+    display: block;
+    margin-top: 12px
+  }
+
+  span.hidden {
+    display: none;
+  }
+
 .registration-title {
   width: 80%;
-  margin: 40px auto;
+  margin: 5px auto 1px;
   border: 2px solid var(--black);
   border-radius: 5px;
   padding: 10px;

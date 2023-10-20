@@ -1,20 +1,46 @@
 @import '../../styles/constants.scss';
 
 .login-container {
+  position: relative;
   background-color: var(--main-color);
   font-size: 44px;
   text-align: center;
   border: 2px solid var(--black);
   border-radius: 5px;
-  padding: 40px; 
+  padding: 40px;
   width: 400px;
-  height: 500px; 
-  margin: 150px auto 0; 
+  height: 550px;
+  margin: 150px auto 0;
+}
+#error-message-login {
+  color: var(--valdation-error);
+  font-size: 20px;
+  display: block;
+  margin-bottom: 20px;
+  position: absolute;
+  top: 182px; 
 }
 
+#error-message-password {
+  color: var(--valdation-error);
+  font-size: 20px;
+  display: block;
+  margin-bottom: -20px;
+  position: absolute;
+  top: 360px; 
+}
+
+  #error-message-login.hidden {
+    display: none;
+  }
+
+  #error-message-password.hidden {
+    display: none;
+  }
+
 .login-title {
-  width: 80%; 
-  margin: 40px auto;
+  width: 80%;
+  margin: 20px auto 120px;
   border: 2px solid var(--black);
   border-radius: 5px;
   padding: 20px;
@@ -23,15 +49,17 @@
 
 .login-button {
   text-align: center;
-  margin-top: 130px;
+  margin-top: 30px;
   display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0; 
+  width: 100%;
+
+  button {
+    display: block;
+    margin: 17px auto 20px;
+    width: 300px;
+    height: 50px;
+  }
 }
-
-.login-button button {
-  display: block;
-  margin: 20px auto; 
-  width: 300px;
-  height: 50px;
-}
-
-
