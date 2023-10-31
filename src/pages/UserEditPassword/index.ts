@@ -2,17 +2,20 @@ import { tmpl } from './userEditPassword.tmpl'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
 import { Avatar } from '../../components/Avatar'
-import Block from '../../utils/Block'
+import Block from '../../core/Block'
 import './userEditPassword.scss'
+import { UserController } from '../../controllers/UserController'
+import { IState, store, withStore } from '../../core/Store'
+import { RESOURSES_URL } from '../../core/HTTPTransport'
 
-export class UserEditPassword extends Block {
+export class BaseUserEditPassword extends Block {
   constructor () {
-    super('div', {});
+   super('div', mapStateToProps(store.getState()));
   }
 
   init () {
     this.children.avaAvatar = new Avatar({
-      imageName: 'https://i.pinimg.com/originals/01/4e/f2/014ef2f860e8e56b27d4a3267e0a193a.jpg',
+      imageName: `${RESOURSES_URL}/${this.props.avatar}`,
       imageText: 'no photo',
       imageClass: 'user-avatar',
   });
@@ -49,7 +52,13 @@ export class UserEditPassword extends Block {
     this.children.saveButton = new Button({
       type: 'submit',
       label: 'Сохранить',
-      events: { click: () => { this.handleSubmit(); } }
+      events: { click: () => {
+      const formData = {
+      oldPassword: this.children.inputOldPassword.takeValue,
+      newPassword: this.children.inputNewPassword.takeValue
+    };
+       UserController.editPassword(formData) 
+       } },
   });
   }
 handleNewRepeatPasswordValidation(){
@@ -102,7 +111,7 @@ handleNewPasswordValidation() {
       newPassword: this.children.inputNewPassword.takeValue,
       newPasswordAgain: this.children.inputNewRepeatPassword.takeValue
     };
-    console.log(formData, 'Formdata Login')
+
   } else {
   console.log("Некорректно")
   }
@@ -112,3 +121,17 @@ handleNewPasswordValidation() {
     return this.compile(tmpl, this.props);
   }
 }
+
+const mapStateToProps = (state: IState) => ({
+  id:state.user?.id,
+  avatar: state.user?.avatar,
+  first_name: state.user?.first_name,
+  second_name: state.user?.second_name,
+  login: state.user?.login,
+  email: state.user?.email,
+  phone: state.user?.phone,
+  display_name: state.user?.display_name
+})
+
+
+export const UserEditPassword = withStore(mapStateToProps)(BaseUserEditPassword)

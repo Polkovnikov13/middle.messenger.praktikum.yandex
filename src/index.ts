@@ -4,28 +4,63 @@ import { Login } from './pages/Login';
 import { Registration } from './pages/Registration';
 import { Chat } from './pages/Chat';
 import { UserEditData } from './pages/UserEditData';
-import { UserEditPassword } from './pages/UserEditPassword';
+import { UserEditPassword} from './pages/UserEditPassword';
 import { ErrorPage } from './pages/ErrorPage';
+import router from './core/Router';
+import { AuthContoller } from './controllers/AuthController';
 
-const ROUTES: Record<string, any> = {
-  '/not-found': NotFound,
-  '/not-working': ErrorPage,
-  '/user': User,
-  '/main': Chat,
-  '/registration': Registration,
-  '/': Login,
-  '/user-edit-data': UserEditData,
-  '/user-edit-password': UserEditPassword
-};
+enum Routes {
+  Index = '/',
+  Register = '/sign-up',
+  Profile = '/settings',
+  Chat = '/messenger',
+  NotFound = '/not-found',
+  ErrorPage = '/error',
+  UserEditData = '/user-edit-data',
+  UserEditPassword = '/user-edit-password',
+}
 
-window.addEventListener('DOMContentLoaded', () => {
-  const root = document.getElementById('app');
-  if (root) {
-    const ComponentConstructor = ROUTES[window.location.pathname] || NotFound;
-    if (ComponentConstructor) {
-      const component = new ComponentConstructor();
-      root.appendChild(component.element);
-      component.dispatchComponentDidMount();
+window.addEventListener('DOMContentLoaded', async () => {
+  router
+    .use(Routes.Index, Login)
+    .use(Routes.Register, Registration)
+    .use(Routes.Profile, User)
+    .use(Routes.Chat, Chat)
+    .use(Routes.NotFound, NotFound)
+    .use(Routes.ErrorPage, ErrorPage)
+    .use(Routes.UserEditData, UserEditData)
+    .use(Routes.UserEditPassword, UserEditPassword);
+
+  let isProtectedRoute = true;
+
+  const { pathname } = window.location;
+  const legitPathNames = Object.values(Routes).map((p) => p.toString());
+
+  if (!legitPathNames.includes(pathname)) {
+    router.go(Routes.NotFound); 
+  } else {
+   
+    switch (pathname) {
+      case Routes.Index:
+      case Routes.Register:
+        isProtectedRoute = false;
+        break;
+    }
+
+    try {
+      await AuthContoller.fetchUser();
+      router.start();
+
+      if (!isProtectedRoute) {
+        router.go(Routes.Profile);
+      }
+    } catch (e) {
+      router.start();
+
+      if (isProtectedRoute) {
+        router.go(Routes.Index);
+      }
     }
   }
 });
+

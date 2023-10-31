@@ -1,4 +1,4 @@
-import Block from '../../utils/Block'
+import Block from '../../core/Block'
 
 interface InputProps {
   hasValidationErrorFirstSecondName?: boolean
@@ -7,28 +7,46 @@ interface InputProps {
   hasValidationErrorEmail?: boolean
   hasValidationErrorPhone?: boolean
   hasValidationErrorMessage?: boolean
+  value?: string
+  accept?: string
   name: string
   type: string
+
   class: string
   id?: string
-  placeholder: string
+  placeholder?: string
   events?: {
-    focus: () => void;
+    focus?: () => void;
     blur?: () => void; 
+    change?: (event: Event) => void;
   }
 }
 export class Input extends Block {
   constructor(props: InputProps) {
     super('input', props)
     
+    
     this.element!.classList.add(props.class);
-    this.element!.setAttribute('placeholder', props.placeholder);
+    this.element!.setAttribute('placeholder', props.placeholder || '');
     this.element!.setAttribute('name', props.name);
     this.element!.setAttribute('type', props.type);
+    this.element!.setAttribute('accept', props.accept || '');
+
+    (this.element! as HTMLInputElement).value = props.value || '';
+
+    if (props.events?.change) {
+      this.element!.addEventListener('change', props.events.change);
+    }
   }
   
   get takeValue() {
     return (this.element! as HTMLInputElement).value
+  }
+
+  clearInput() {
+    if (this.element instanceof HTMLInputElement) {
+      this.element.value = '';
+    }
   }
 
   _validateWithRegex(regex: RegExp) {

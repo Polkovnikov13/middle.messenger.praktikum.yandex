@@ -2,6 +2,7 @@ export const tmpl = `
 <div class="user-profile">
  <form onsubmit="event.preventDefault();">
       {{{avaAvatar}}} 
+      {{{inputChangeAvatar}}}
   <div class="user-details">
     <div class="user-detail">
       <div class="detail-label">Почта</div>
