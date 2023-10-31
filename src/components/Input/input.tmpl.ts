@@ -5,5 +5,6 @@ export const tmpl = `
       value="{{ value }}"
       type="{{type}}"
       class="{{class}}"
+      accept="{{accept}}"
     />
 `;

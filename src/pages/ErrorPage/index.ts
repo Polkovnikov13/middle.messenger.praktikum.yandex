@@ -1,7 +1,7 @@
 import './errorpage.scss'
 import { tmpl } from './errorpage.tmpl'
 import { Link } from '../../components/Link'
-import Block from '../../utils/Block'
+import Block from '../../core/Block'
 
 export class ErrorPage extends Block {
   constructor () {
@@ -10,7 +10,7 @@ export class ErrorPage extends Block {
 
   init () {
     this.children.mainPageLink = new Link({
-      to: '/main',
+      to: '/messenger',
       text: 'Вернуться на основную страницу',
 });
   }

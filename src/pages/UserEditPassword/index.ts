@@ -2,8 +2,9 @@ import { tmpl } from './userEditPassword.tmpl'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
 import { Avatar } from '../../components/Avatar'
-import Block from '../../utils/Block'
+import Block from '../../core/Block'
 import './userEditPassword.scss'
+import { UserController } from '../../controllers/UserController'
 
 export class UserEditPassword extends Block {
   constructor () {
@@ -49,7 +50,14 @@ export class UserEditPassword extends Block {
     this.children.saveButton = new Button({
       type: 'submit',
       label: 'Сохранить',
-      events: { click: () => { this.handleSubmit(); } }
+      events: { click: () => {
+      const formData = {
+      oldPassword: this.children.inputOldPassword.takeValue,
+      newPassword: this.children.inputNewPassword.takeValue
+    };
+      console.log(formData);
+       UserController.editPassword(formData) 
+       } },
   });
   }
 handleNewRepeatPasswordValidation(){

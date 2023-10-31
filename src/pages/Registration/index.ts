@@ -1,6 +1,7 @@
+import {AuthContoller}  from '../../controllers/AuthController';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
-import Block from '../../utils/Block';
+import Block from '../../core/Block';
 import { tmpl } from './registration.tmpl'
 import './registration.scss'
 
@@ -204,6 +205,7 @@ if(this.children.inputEmail.isValidEmail && this.children.inputLogin.isValidLogi
       password: this.children.inputPassword.takeValue,
       confirm_password: this.children.inputConfirmPassword.takeValue,
     };
+    AuthContoller.signup(formData)
     console.log(formData,'registrationForm');
   } else {
   console.log("Неккоректно")

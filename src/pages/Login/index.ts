@@ -1,4 +1,5 @@
-import Block from '../../utils/Block'
+import { AuthContoller } from '../../controllers/AuthController';
+import Block from '../../core/Block'
 import './login.scss' 
 import { tmpl } from './login.tmpl';
 import { Button } from '../../components/Button'
@@ -76,6 +77,7 @@ handlePasswordValidation() {
       login: this.children.inputLogin.takeValue,
       password: this.children.inputPassword.takeValue
     };
+    AuthContoller.signin(formData)
     console.log(formData, 'Formdata Login')
   } else {
   console.log('Неккоректно')

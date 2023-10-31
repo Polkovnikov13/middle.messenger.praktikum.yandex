@@ -7,7 +7,7 @@ export const tmpl = `
      <span id="error-message-password"></span>
     <div class="login-button">
       {{{button}}}
-      <a href="/registration">{{{buttonLink}}}</a>
+      <a href="/sign-up">{{{buttonLink}}}</a>
     </div>
   </form>
 </div>

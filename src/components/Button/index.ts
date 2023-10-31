@@ -1,4 +1,4 @@
-import Block from '../../utils/Block'
+import Block from '../../core/Block'
 import './button.scss'
 
 interface ButtonProps {
@@ -7,6 +7,7 @@ interface ButtonProps {
   class?: string
   events?: {
     click: () => void
+    focus?:()=> void
   }
 }
 
