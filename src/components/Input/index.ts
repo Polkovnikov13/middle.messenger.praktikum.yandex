@@ -8,8 +8,10 @@ interface InputProps {
   hasValidationErrorPhone?: boolean
   hasValidationErrorMessage?: boolean
   value?: string
+  accept?: string
   name: string
   type: string
+
   class: string
   id?: string
   placeholder: string
@@ -27,7 +29,7 @@ export class Input extends Block {
     this.element!.setAttribute('placeholder', props.placeholder);
     this.element!.setAttribute('name', props.name);
     this.element!.setAttribute('type', props.type);
-
+    this.element!.setAttribute('accept', props.accept || '')
     if (props.events?.change) {
       this.element!.addEventListener('change', props.events.change);
     }
@@ -35,6 +37,12 @@ export class Input extends Block {
   
   get takeValue() {
     return (this.element! as HTMLInputElement).value
+  }
+
+  clearInput() {
+    if (this.element instanceof HTMLInputElement) {
+      this.element.value = ''; // Set the input field value to an empty string
+    }
   }
 
   _validateWithRegex(regex: RegExp) {

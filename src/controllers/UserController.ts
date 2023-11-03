@@ -1,8 +1,6 @@
-import UserApi, { UserEdit, UserEditPassword, } from "../api/UserApi";
+import UserApi, { UserEdit, UserEditPassword, UserFindById, } from "../api/UserApi";
 import { store } from "../core/Store";
 import router from '../core/Router'
-
-
 
 export class UserController {
 
@@ -19,7 +17,6 @@ export class UserController {
 
     static async editPassword(data: UserEditPassword){
         try {
-            console.log('Edit Password Зашли')
             const password = await UserApi.editPassword(data)
             console.log(password,'editPassword')
             router.go('/user')
@@ -30,7 +27,6 @@ export class UserController {
 
     static async editAvatar(data:FormData){
     try {
-        console.log('Edit Avatar Started')
         const user = await UserApi.editAvatar(data);
         console.log(user, "editAvatar")
         store.set('user', user);
@@ -47,4 +43,15 @@ export class UserController {
             console.log(err, 'getUserById error');  
         }
     }
+
+      static async getUserByLogin(login:UserFindById){
+    try {
+        const user = await UserApi.getUserByLogin(login);
+        console.log(user, "getUserByLogin")
+        return user;
+   } catch (err) {
+            console.log(err, 'getUserById error');  
+        }
+    }
+
 }

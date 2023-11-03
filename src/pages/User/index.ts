@@ -14,6 +14,10 @@ export class BaseUser extends Block {
   }
 
   init () {
+   this.children.messengerLink = new Link({
+      to: '/messenger',
+      text: 'Чаты',
+});
     this.children.editUserMainLink = new Link({
       to: '/user-edit-data',
       text: 'Изменить данные',

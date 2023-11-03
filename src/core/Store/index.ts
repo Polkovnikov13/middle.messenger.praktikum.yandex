@@ -24,7 +24,7 @@ class Store extends EventBus {
     }
 
     getState(): IState{
-    console.log("getState",this.state);
+    //console.log("getState",this.state);
     return this.state;
     }
 

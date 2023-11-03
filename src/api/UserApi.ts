@@ -14,6 +14,10 @@ export interface UserEditPassword {
   newPassword: string,
 }
 
+export interface UserFindById {
+  login: string,
+}
+
 
 export class UserApi extends API{
     constructor(){
@@ -33,7 +37,11 @@ export class UserApi extends API{
     }
 
     async getUserById(id:number){
-         return this.http.get(`/user/${id}`);
+         return this.http.get(`/${id}`);
+    }
+
+    async getUserByLogin(login:UserFindById){
+          return this.http.post('/search', login);
     }
 
 }

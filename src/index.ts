@@ -4,7 +4,7 @@ import { Login } from './pages/Login';
 import { Registration } from './pages/Registration';
 import { Chat } from './pages/Chat';
 import { UserEditData } from './pages/UserEditData';
-import { UserEditPassword } from './pages/UserEditPassword';
+import { UserEditPassword} from './pages/UserEditPassword';
 import { ErrorPage } from './pages/ErrorPage';
 import router from './core/Router';
 import { AuthContoller } from './controllers/AuthController';

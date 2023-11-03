@@ -5,15 +5,16 @@ import { Avatar } from '../../components/Avatar'
 import Block from '../../core/Block'
 import './userEditPassword.scss'
 import { UserController } from '../../controllers/UserController'
+import { IState, store, withStore } from '../../core/Store'
 
-export class UserEditPassword extends Block {
+export class BaseUserEditPassword extends Block {
   constructor () {
-    super('div', {});
+   super('div', mapStateToProps(store.getState()));
   }
 
   init () {
     this.children.avaAvatar = new Avatar({
-      imageName: 'https://i.pinimg.com/originals/01/4e/f2/014ef2f860e8e56b27d4a3267e0a193a.jpg',
+      imageName: `https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}`,
       imageText: 'no photo',
       imageClass: 'user-avatar',
   });
@@ -120,3 +121,17 @@ handleNewPasswordValidation() {
     return this.compile(tmpl, this.props);
   }
 }
+
+const mapStateToProps = (state: IState) => ({
+  id:state.user?.id,
+  avatar: state.user?.avatar,
+  first_name: state.user?.first_name,
+  second_name: state.user?.second_name,
+  login: state.user?.login,
+  email: state.user?.email,
+  phone: state.user?.phone,
+  display_name: state.user?.display_name
+})
+
+
+export const UserEditPassword = withStore(mapStateToProps)(BaseUserEditPassword)

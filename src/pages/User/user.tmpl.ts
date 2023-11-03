@@ -30,6 +30,7 @@ export const tmpl = `
     </div>
   </div>
   <div class="user-actions">
+    <div class="edit-data">{{{messengerLink}}}</div>
     <div class="edit-data">{{{editUserMainLink}}}</div>
     <div class="change-password">{{{editUserPasswordLink}}}</div>
     <div class="logout">{{{exitButton}}}</div>
