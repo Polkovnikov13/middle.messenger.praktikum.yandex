@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars'
 import { nanoid } from 'nanoid'
-import { EventBus } from './EventBus'
+import { EventBus } from '../EventBus'
 
 class Block<P extends Record<string, any> = any> {
   [x: string]: any
@@ -103,19 +103,21 @@ class Block<P extends Record<string, any> = any> {
     this.componentDidMount()
   }
 
-  protected componentDidMount () {}
+  protected componentDidMount () {
+      console.log("componentDidMount",this.element?.tagName)
+  }
 
   public dispatchComponentDidMount () {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM)
-
+     console.log("dispatchComponentDidMount",this.element?.tagName)
     Object.values(this.children).forEach((child) => { child.dispatchComponentDidMount() });
   }
 
   private _componentDidUpdate (oldProps: P, newProps: P) {
-    console.log("component DidsUpdate",this.element?.tagName)
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER)
     }
+     console.log("_componentDidUpdate",this.element?.tagName)
   }
 
   protected componentDidUpdate (_oldProps: P, _newProps: P) {

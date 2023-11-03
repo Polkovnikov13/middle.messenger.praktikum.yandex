@@ -1,5 +1,5 @@
 import { Link } from '../../components/Link'
-import Block from '../../utils/Block'
+import Block from '../../core/Block'
 import { tmpl } from './notfound.tmpl'
 
 export class NotFound extends Block {
@@ -9,7 +9,7 @@ export class NotFound extends Block {
 
   init () {
     this.children.mainPageLink = new Link({
-      to: '/main',
+      to: '/messenger',
       text: 'Вернуться на основную страницу',
   });
   }

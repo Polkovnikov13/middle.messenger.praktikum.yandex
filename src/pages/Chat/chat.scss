@@ -36,6 +36,18 @@
 
 .chat-info {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chat-delete {
+    margin-top: 10px; 
 }
 
 .chat-user {
@@ -44,6 +56,10 @@
 
 .chat-message {
     color: var(--black);
+}
+
+.chat-message-item-hidden {
+    display: none;
 }
 
 .chat-messages {
@@ -77,6 +93,7 @@
     display: flex;
     align-items: center;
     padding: 10px;
+    margin-right: 10px;
 }
 
 .chat-message-input input[type="text"] {
@@ -114,4 +131,59 @@
   #chat-message-error.hidden {
     display: none;
   }
+
+.home-user-link {
+    color: var(--black); 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 5px;
+    margin-left: 100px;
+}
+
+.button-container {
+    position: absolute;
+    top: 20px; 
+    right: 107px;
+    display: flex;
+}
+
+.button-container-hidden {
+    display: none;
+}
+
+.add-button {
+    margin-right: 20px;
+    background-color: var(--chat-button);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.delete-button {
+
+    background-color: var(--valdation-error);
+    color: var(--black);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.chat-message-list {
+    flex: 1;
+    padding: 75px; 
+    overflow-y: auto;
+}
+
+.delete-main-word {
+    font-weight: bold;  
+    text-align: center;  
+    margin-top: 320px; 
+    font-size: 44px; 
+}
+
 

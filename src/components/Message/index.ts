@@ -1,5 +1,5 @@
 import { tmpl } from './message.tmpl'
-import Block from '../../utils/Block'
+import Block from '../../core/Block'
 
 interface MessageProps {
   class: string
