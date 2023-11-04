@@ -70,6 +70,7 @@ export class HTTPTransport {
 };
 
 
+
       xhr.onabort = () => reject({reason: 'abort'});
       xhr.onerror = () => reject({reason: 'network error'});
       xhr.ontimeout = () => reject({reason: 'timeout'});
