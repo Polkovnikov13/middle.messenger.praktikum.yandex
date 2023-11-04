@@ -141,57 +141,33 @@ this.children.addUserButton = new Button({
      this.children.inputCreateChat.clearInput()
     }
 
-async handleAddUser(messageId:any) {
-  messageId = this.props.mesId
-  console.log("handleAddUser called with messageId:", messageId);
+ async handleAddUser(messageId: any) {
+  console.log('00000000');
+  console.log(messageId);
+  console.log('00000000');
   const formData = {
     login: this.children.inputAddUser.takeValue
   };
   const res = await UserController.getUserByLogin(formData);
-  console.log(res);
-  if (res) { 
-    ChatController.addUsers({ users: [res[0].id], chatId: messageId });
-  } else {
-    console.log('res is null');
-  }
+  ChatController.addUsers({ users: [res[0].id], chatId: messageId });
   // Clear the inputAddUser field
   this.children.inputAddUser.clearInput();
   console.log("this.selectedMessageId after handleAddUser:", this.selectedMessageId);
 }
 
-async handleDeleteUser(messageId:any){
-messageId = this.props.mesId
-  console.log("handleDeleteUser called with messageId:", this.props.mesId);
-  const formData = {
-    login: this.children.inputDeleteUser.takeValue
-  };
-  console.log(formData);
-  const res = await UserController.getUserByLogin(formData);
-  if (res) { // Проверка, что res не равно nulls
-    ChatController.deleteUsers({"users":[res[0].id],chatId:messageId});
-  } else {
-    // Обработка случая, когда res равно null
-    console.log('res is null');
-  }
-  this.children.inputDeleteUser.clearInput();
-}
 
-    changeAvatar(e:Event) {
-    const inputElement = e.target as HTMLInputElement;
-    if (inputElement.files) {
-        const formData = new FormData();
-        const file = inputElement.files[0]
-        formData.append('avatar', file);
-        const res = this.props.mesId
-        formData.append('chatId', String(res));
-        ChatController.chatAvatar(formData);
-    }
-    setTimeout(() => {
-    inputElement.value = '';
-    this.children.inputChangeAvatar.setProps({ placeholder: 'Выберите файл' });
-    },2000)
-    
-}
+    async handleDeleteUser(messageId: any){
+     console.log('00000000')
+      console.log(messageId)
+       console.log('00000000')
+      const formData = {
+      login: this.children.inputDeleteUser.takeValue
+    };
+    console.log(formData);
+      const res = await UserController.getUserByLogin(formData)
+       ChatController.deleteUsers({"users":[res[0].id],chatId:messageId})
+       this.children.inputDeleteUser.clearInput();
+    }  
 
 handleMessageValidation() {
     // GET CHATS!!!
