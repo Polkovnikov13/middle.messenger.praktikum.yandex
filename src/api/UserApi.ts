@@ -1,3 +1,4 @@
+import { IUser } from "./AuthApi";
 import { API } from "./api";
 
 export interface UserEdit {
@@ -40,7 +41,7 @@ export class UserApi extends API{
          return this.http.get(`/${id}`);
     }
 
-    async getUserByLogin(login:UserFindById){
+    async getUserByLogin(login:UserFindById):Promise<IUser[] | null> {
           return this.http.post('/search', login);
     }
 

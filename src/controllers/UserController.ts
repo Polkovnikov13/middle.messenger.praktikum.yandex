@@ -1,6 +1,7 @@
 import UserApi, { UserEdit, UserEditPassword, UserFindById, } from "../api/UserApi";
 import { store } from "../core/Store";
 import router from '../core/Router'
+import { IUser } from "../api/AuthApi";
 
 export class UserController {
 
@@ -44,14 +45,16 @@ export class UserController {
         }
     }
 
-      static async getUserByLogin(login:UserFindById): Promise<T>{
-    try {
-        const user = await UserApi.getUserByLogin(login);
-        console.log(user, "getUserByLogin")
-        return user;
-   } catch (err) {
-            console.log(err, 'getUserById error');  
-        }
-    }
+static async getUserByLogin(login: UserFindById): Promise<IUser[] | null> {
+  try {
+    const user = await UserApi.getUserByLogin(login);
+    console.log(user, "getUserByLogin");
+    return user;
+  } catch (err) {
+    console.log(err, 'getUserByLogin error');
+    return null;
+  }
+}
+
 
 }

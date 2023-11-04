@@ -2,7 +2,7 @@ import Handlebars from 'handlebars'
 import { nanoid } from 'nanoid'
 import { EventBus } from '../EventBus'
 
-class Block<P extends Record<string, any> = any> {
+export class Block<P extends Record<string, any> = any> {
   [x: string]: any
   static EVENTS = {
     INIT: 'init',

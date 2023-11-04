@@ -121,7 +121,7 @@ export class BaseChat extends Block {
      this.children.inputCreateChat.clearInput()
     }
 
- async handleAddUser(messageId: any) {
+async handleAddUser(messageId: any) {
   console.log('00000000');
   console.log(messageId);
   console.log('00000000');
@@ -130,23 +130,39 @@ export class BaseChat extends Block {
   };
   console.log(formData);
   const res = await UserController.getUserByLogin(formData);
-  ChatController.addUsers({ users: [res[0].id], chatId: messageId });
+  if (res) { 
+    console.log(res[0].id, '!!!');
+    ChatController.addUsers({ users: [res[0].id], chatId: messageId });
+  } else {
+    console.log('res is null');
+  }
+
   // Clear the inputAddUser field
   this.children.inputAddUser.clearInput();
 }
 
-    async handleDeleteUser(messageId: any){
-     console.log('00000000')
-      console.log(messageId)
-       console.log('00000000')
-      const formData = {
-      login: this.children.inputDeleteUser.takeValue
-    };
-    console.log(formData);
-      const res = await UserController.getUserByLogin(formData)
-       ChatController.deleteUsers({"users":[res[0].id],chatId:messageId})
-       this.children.inputDeleteUser.clearInput();
-    }  
+
+async handleDeleteUser(messageId: any){
+  console.log('00000000');
+  console.log(messageId);
+  console.log('00000000');
+  const formData = {
+    login: this.children.inputDeleteUser.takeValue
+  };
+  console.log(formData);
+  const res = await UserController.getUserByLogin(formData);
+
+  if (res) { // Проверка, что res не равно null
+    console.log(res[0].id, '!!!');
+    ChatController.deleteUsers({"users":[res[0].id],chatId:messageId});
+  } else {
+    // Обработка случая, когда res равно null
+    console.log('res is null');
+  }
+
+  this.children.inputDeleteUser.clearInput();
+}
+
 
     handleMessageValidation() {
     // GET CHATS!!!
