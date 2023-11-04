@@ -44,7 +44,7 @@ export class UserController {
         }
     }
 
-      static async getUserByLogin(login:UserFindById){
+      static async getUserByLogin(login:UserFindById): Promise<T>{
     try {
         const user = await UserApi.getUserByLogin(login);
         console.log(user, "getUserByLogin")

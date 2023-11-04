@@ -130,7 +130,6 @@ export class BaseChat extends Block {
   };
   console.log(formData);
   const res = await UserController.getUserByLogin(formData);
-  console.log(res[0].id, '!!!');
   ChatController.addUsers({ users: [res[0].id], chatId: messageId });
   // Clear the inputAddUser field
   this.children.inputAddUser.clearInput();
@@ -145,7 +144,6 @@ export class BaseChat extends Block {
     };
     console.log(formData);
       const res = await UserController.getUserByLogin(formData)
-      console.log(res[0].id,'!!!')
        ChatController.deleteUsers({"users":[res[0].id],chatId:messageId})
        this.children.inputDeleteUser.clearInput();
     }  
