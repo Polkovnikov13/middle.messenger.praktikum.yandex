@@ -12,7 +12,7 @@ export class ChatWSController {
       await ChatWS.sendWS({
         content: '0',
         type: 'get old',
-        map: function (arg0: (message: WSMessage) => { name: string | undefined; content: string; type?: string | undefined; chat_id?: number | undefined; file?: string | undefined; id?: number | undefined; is_read?: boolean | undefined; time?: string | undefined; user_id?: string | undefined; }): unknown {
+        map: function (_arg0: (message: WSMessage) => { name: string | undefined; content: string; type?: string | undefined; chat_id?: number | undefined; file?: string | undefined; id?: number | undefined; is_read?: boolean | undefined; time?: string | undefined; user_id?: string | undefined; }): unknown {
           throw new Error('Function not implemented.');
         }
       });
@@ -28,7 +28,7 @@ export class ChatWSController {
       await ChatWS.sendWS({
         content: '0',
         type: 'get old',
-        map: function (arg0: (message: WSMessage) => { name: string | undefined; content: string; type?: string | undefined; chat_id?: number | undefined; file?: string | undefined; id?: number | undefined; is_read?: boolean | undefined; time?: string | undefined; user_id?: string | undefined; }): unknown {
+        map: function (_arg0: (message: WSMessage) => { name: string | undefined; content: string; type?: string | undefined; chat_id?: number | undefined; file?: string | undefined; id?: number | undefined; is_read?: boolean | undefined; time?: string | undefined; user_id?: string | undefined; }): unknown {
           throw new Error('Function not implemented.');
         }
       });
