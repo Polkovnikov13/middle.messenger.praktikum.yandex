@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { WS } from './ws';
 
 export interface WSMessage  {
