@@ -309,7 +309,7 @@ const mapStateToProps = (state: IState) => ({
   wsMessage: state.wsMessage ? state.wsMessage.map((message: WSMessage) => {
     const foundUser = state.xFiles?.find((user:any) => user.id === message.user_id);
     const name = foundUser ? foundUser.login : "Фиксик";
-    const isSentMessage = message.user_id === state.user.id; // Проверка, отправлено ли сообщение текущим пользователем
+    const isSentMessage = message.user_id === state.user?.id; // Используйте опциональный оператор "?"
     return { ...message, name, isSentMessage };
   }) : [],
   mesId: state.mesId,
