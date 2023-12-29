@@ -82,6 +82,7 @@ export const tmpl = `
       {{#each usersArray}}
         <div class="user-item">{{login}}</div>
       {{/each}}
+<<<<<<< HEAD
     </div>
 
     {{#if selectedMessageId}}
@@ -93,8 +94,22 @@ export const tmpl = `
       {{{inputMessage}}}
       {{{MessageButton}}}
     </div>
+=======
+    </div>
+
+    {{#if selectedMessageId}}
+      <div class="delete-main-word">Выберите чат</div>
+    {{/if}}
+
+    <span id="chat-message-error" class="chat-message-error"></span>
+    <div class="chat-message-input">
+      {{{inputMessage}}}
+      {{{MessageButton}}}
+    </div>
+>>>>>>> changes1.0
   </div>
 </div>
 
 
 `
+

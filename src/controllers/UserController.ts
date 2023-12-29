@@ -17,7 +17,11 @@ export class UserController {
 
     static async editPassword(data: UserEditPassword){
         try {
+<<<<<<< HEAD
             await UserApi.editPassword(data)
+=======
+            const password = await UserApi.editPassword(data)
+>>>>>>> changes1.0
             router.go('/settings')
         } catch (err) {
             console.log(err, 'editPassword error');  

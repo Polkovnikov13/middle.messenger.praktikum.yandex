@@ -28,7 +28,11 @@ class Store extends EventBus {
     }
 
     getState(): IState{
+<<<<<<< HEAD
     console.log(this.state.mesId);
+=======
+    console.log(this.state.mesId,'STOREEEEE');
+>>>>>>> changes1.0
     return this.state;
     }
 

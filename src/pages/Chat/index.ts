@@ -141,20 +141,36 @@ this.children.addUserButton = new Button({
      this.children.inputCreateChat.clearInput()
     }
 
+<<<<<<< HEAD
  async handleAddUser(messageId: any) {
   console.log('00000000');
   console.log(messageId);
   console.log('00000000');
+=======
+async handleAddUser(messageId:any) {
+  messageId = this.props.mesId
+  console.log("handleAddUser called with messageId:", messageId);
+>>>>>>> changes1.0
   const formData = {
     login: this.children.inputAddUser.takeValue
   };
   const res = await UserController.getUserByLogin(formData);
+<<<<<<< HEAD
   ChatController.addUsers({ users: [res[0].id], chatId: messageId });
+=======
+  console.log(res);
+  if (res) { 
+    ChatController.addUsers({ users: [res[0].id], chatId: messageId });
+  } else {
+    console.log('res is null');
+  }
+>>>>>>> changes1.0
   // Clear the inputAddUser field
   this.children.inputAddUser.clearInput();
   console.log("this.selectedMessageId after handleAddUser:", this.selectedMessageId);
 }
 
+<<<<<<< HEAD
 
     async handleDeleteUser(messageId: any){
      console.log('00000000')
@@ -168,6 +184,41 @@ this.children.addUserButton = new Button({
        ChatController.deleteUsers({"users":[res[0].id],chatId:messageId})
        this.children.inputDeleteUser.clearInput();
     }  
+=======
+async handleDeleteUser(messageId:any){
+messageId = this.props.mesId
+  console.log("handleDeleteUser called with messageId:", this.props.mesId);
+  const formData = {
+    login: this.children.inputDeleteUser.takeValue
+  };
+  console.log(formData);
+  const res = await UserController.getUserByLogin(formData);
+  if (res) { // Проверка, что res не равно nulls
+    ChatController.deleteUsers({"users":[res[0].id],chatId:messageId});
+  } else {
+    // Обработка случая, когда res равно null
+    console.log('res is null');
+  }
+  this.children.inputDeleteUser.clearInput();
+}
+
+    changeAvatar(e:Event) {
+    const inputElement = e.target as HTMLInputElement;
+    if (inputElement.files) {
+        const formData = new FormData();
+        const file = inputElement.files[0]
+        formData.append('avatar', file);
+        const res = this.props.mesId
+        formData.append('chatId', String(res));
+        ChatController.chatAvatar(formData);
+    }
+    setTimeout(() => {
+    inputElement.value = '';
+    this.children.inputChangeAvatar.setProps({ placeholder: 'Выберите файл' });
+    },2000)
+    
+}
+>>>>>>> changes1.0
 
 handleMessageValidation() {
     // GET CHATS!!!
@@ -188,18 +239,27 @@ handleMessageValidation() {
         // Проверяем, что сообщение не состоит только из пробелов
         if (messageContent !== '') {
             //Чтобы текст вставлялся
+<<<<<<< HEAD
             ChatWSController.sendMessage({
               content: messageContent,
               map: function (_arg0: (message: WSMessage) => { name: string | undefined; content: string; type?: string | undefined; chat_id?: number | undefined; file?: string | undefined; id?: number | undefined; is_read?: boolean | undefined; time?: string | undefined; user_id?: string | undefined; }): unknown {
                 throw new Error('Function not implemented.');
               }
             });  
+=======
+            ChatWSController.sendMessage({ content: messageContent });  
+>>>>>>> changes1.0
             this.children.inputMessage.clearInput();
         }
     }
 }
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> changes1.0
 handleDeleteClick(messageId: any) {
     // Удалите чат
     console.log(messageId, '<=====messageId=====|');
@@ -285,12 +345,20 @@ const mapStateToProps = (state: IState) => ({
   wsMessage: state.wsMessage ? state.wsMessage.map((message: WSMessage) => {
     const foundUser = state.xFiles?.find((user:any) => user.id === message.user_id);
     const name = foundUser ? foundUser.login : "Фиксик";
+<<<<<<< HEAD
     const isSentMessage = message.user_id === state.user?.id; // Используйте опциональный оператор "?"
+=======
+    const isSentMessage = message.user_id === state.user.id; // Проверка, отправлено ли сообщение текущим пользователем
+>>>>>>> changes1.0
     return { ...message, name, isSentMessage };
   }) : [],
   mesId: state.mesId,
   xFiles: state.xFiles,
 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> changes1.0
 
 
 export const Chat = withStore(mapStateToProps)(BaseChat)

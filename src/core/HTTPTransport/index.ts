@@ -68,7 +68,10 @@ export class HTTPTransport {
     }
   }
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> changes1.0
 
 
       xhr.onabort = () => reject({reason: 'abort'});

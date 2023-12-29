@@ -1,4 +1,5 @@
 import ChatApi, { UsersData } from "../api/ChatApi";
+import getConnectWsToken from "../api/ChatApi";
 import { store } from "../core/Store";
 import { ChatWSController } from "./ChatWSController";
 

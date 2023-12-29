@@ -12,9 +12,17 @@ export class WSTransport extends EventBus{
   private socket?: WebSocket ;
   private pingInterval?: ReturnType<typeof setInterval>;
   private readonly pingIntervalTime = 30000;
+<<<<<<< HEAD
 
   constructor(_url: string) {
     super();
+=======
+  private url: string;
+
+  constructor(url: string) {
+    super();
+    this.url = url;
+>>>>>>> changes1.0
   }
 
 public send(data: string | number| object) {
