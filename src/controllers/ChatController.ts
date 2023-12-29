@@ -1,5 +1,4 @@
 import ChatApi, { UsersData } from "../api/ChatApi";
-import getConnectWsToken from "../api/ChatApi";
 import { store } from "../core/Store";
 import { ChatWSController } from "./ChatWSController";
 
@@ -36,7 +35,7 @@ export class ChatController {
 
     static async getFiles(id:number){
       try {
-        const answer = await ChatApi.getFiles(id);
+        await ChatApi.getFiles(id);
       } catch (err) {
         console.log(err)
       }
