@@ -1,14 +1,18 @@
+/* eslint-disable max-len */
+import { WSMessage } from '../../api/ChatWS';
 import { Avatar } from '../../components/Avatar';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { Link } from '../../components/Link';
 import { Message } from '../../components/Message';
 import { ChatController } from '../../controllers/ChatController';
+import { ChatWSController } from '../../controllers/ChatWSController';
 import { UserController } from '../../controllers/UserController';
 import Block from '../../core/Block';
 import { IState, store, withStore } from '../../core/Store';
 import './chat.scss';
 import { tmpl } from './chat.tmpl';
+
 
 export class BaseChat extends Block {
   constructor() {
@@ -16,11 +20,11 @@ export class BaseChat extends Block {
     ChatController.getChat()
     this.state = {
       chatSelected: false,
+      selectedMessageId: null
     };
   }
 
     init() {
-        
     this.children.inputCreateChat = new Input({
       class:'chat-message-input-up',
       name: 'lenta-message',
@@ -35,21 +39,28 @@ export class BaseChat extends Block {
       focus: () => { console.log(this.children.inputCreateChat.takeValue); },
       click: () => { this.createChatValidation(); }
   }, 
-})
-    this.children.addUserButton = new Button({
-    type: 'button',
-    label: 'Добавить пользователя',
-    class: 'add-button',
-      events: {
-      click: () => { this.handleAddUser(this.selectedMessageId); },
+})  
+this.children.addUserButton = new Button({
+  type: 'button',
+  label: 'Добавить пользователя',
+  class: 'add-button',
+  events: {
+    click: () => { 
+      if (this.props.mesId) {
+        this.handleAddUser(this.props.mesId); 
+      } else {
+        console.log('No selected message id');
+      }
+    },
   }, 
 })
+
     this.children.deleteUserButton = new Button({
     type: 'button',
     label: 'Удалить пользователя',
     class: 'delete-button',
       events: {
-      click: () => { this.handleDeleteUser(this.selectedMessageId); },
+      click: () => { this.handleDeleteUser(this.props.mesId); },
   }, 
 })
     this.children.inputAddUser = new Input({
@@ -102,13 +113,22 @@ export class BaseChat extends Block {
     events: { click: () => console.log('Отправилось!') },
 })  
     this.children.userPageLink = new Link({
-      to: '/user',
+      to: '/settings',
       text: 'Вернуться на страницу пользователя',
   });
-    // this.children.messageAnswer = new Message({
-    // class: "chat-message-item chat-message-sent",
-    // text: "User 1: Hello!",
-    // })
+    this.children.messageAnswer = new Message({
+    class: "chat-message-item chat-message-sent",
+    text: "User 1: Hello!",
+    })
+    this.children.inputChangeAvatar = new Input({
+    placeholder: 'Картинка чата',
+    name: 'avatar',
+    type: 'file',
+    class: 'detail-value',
+    events: {
+        change: (event) => { this.changeAvatar(event); }
+    },
+  });
     this.children.messageI = new Message({
     class: "chat-message-item chat-message-received",
     text: "User 1: Hello!",
@@ -121,72 +141,90 @@ export class BaseChat extends Block {
      this.children.inputCreateChat.clearInput()
     }
 
-async handleAddUser(messageId: any) {
-  console.log('00000000');
-  console.log(messageId);
-  console.log('00000000');
+async handleAddUser(messageId:any) {
+  messageId = this.props.mesId
+  console.log("handleAddUser called with messageId:", messageId);
   const formData = {
     login: this.children.inputAddUser.takeValue
   };
-  console.log(formData);
   const res = await UserController.getUserByLogin(formData);
+  console.log(res);
   if (res) { 
-    console.log(res[0].id, '!!!');
     ChatController.addUsers({ users: [res[0].id], chatId: messageId });
   } else {
     console.log('res is null');
   }
-
   // Clear the inputAddUser field
   this.children.inputAddUser.clearInput();
+  console.log("this.selectedMessageId after handleAddUser:", this.selectedMessageId);
 }
 
-
-async handleDeleteUser(messageId: any){
-  console.log('00000000');
-  console.log(messageId);
-  console.log('00000000');
+async handleDeleteUser(messageId:any){
+messageId = this.props.mesId
+  console.log("handleDeleteUser called with messageId:", this.props.mesId);
   const formData = {
     login: this.children.inputDeleteUser.takeValue
   };
   console.log(formData);
   const res = await UserController.getUserByLogin(formData);
-
-  if (res) { // Проверка, что res не равно null
-    console.log(res[0].id, '!!!');
+  if (res) { // Проверка, что res не равно nulls
     ChatController.deleteUsers({"users":[res[0].id],chatId:messageId});
   } else {
     // Обработка случая, когда res равно null
     console.log('res is null');
   }
-
   this.children.inputDeleteUser.clearInput();
 }
 
+    changeAvatar(e:Event) {
+    const inputElement = e.target as HTMLInputElement;
+    if (inputElement.files) {
+        const formData = new FormData();
+        const file = inputElement.files[0]
+        formData.append('avatar', file);
+        const res = this.props.mesId
+        formData.append('chatId', String(res));
+        ChatController.chatAvatar(formData);
+    }
+    setTimeout(() => {
+    inputElement.value = '';
+    this.children.inputChangeAvatar.setProps({ placeholder: 'Выберите файл' });
+    },2000)
+    
+}
 
-    handleMessageValidation() {
+handleMessageValidation() {
     // GET CHATS!!!
-    ChatController.getChat()
+    ChatController.getChat();
     const errorMessage = document.getElementById('chat-message-error');
-        if (!this.children.inputMessage.isValidMessage) {
-        if (errorMessage) { 
-      errorMessage.classList.remove('visible'); 
-      errorMessage.textContent = 'Сообщение не должно быть пустым!Введите текст';
-    }
-  } else {
-    if (errorMessage) {
-      errorMessage.classList.add('hidden');
-    }
-        }
-         console.log('!!!!!!!!!!!!!!!', this.selectedMessageId);    
-         
-    }
+    const messageContent = this.children.inputMessage.takeValue.trim(); // Получаем текст сообщения и удаляем пробелы с обеих сторон
 
-    handleDeleteClick(messageId: any) {
+    if (!this.children.inputMessage.isValidMessage || messageContent === '') {
+        if (errorMessage) { 
+            errorMessage.classList.remove('visible'); 
+            errorMessage.textContent = 'Сообщение не должно быть пустым! Введите текст';
+        }
+    } else {
+        if (errorMessage) {
+            errorMessage.classList.add('hidden');
+        }
+
+        // Проверяем, что сообщение не состоит только из пробелов
+        if (messageContent !== '') {
+            //Чтобы текст вставлялся
+            ChatWSController.sendMessage({ content: messageContent });  
+            this.children.inputMessage.clearInput();
+        }
+    }
+}
+
+
+handleDeleteClick(messageId: any) {
     // Удалите чат
+    console.log(messageId, '<=====messageId=====|');
     ChatController.deleteChat(messageId);
-    // Опционально: обновите интерфейс, чтобы удалить чат из списка
-    this.props.messages = this.props.messages.filter((chat: any) => chat.id !== Number(messageId));
+    // Обновите интерфейс
+    store.set('messages', this.props.messages.filter((chat: any) => chat.id !== Number(messageId)));
     // Опционально: обновите ваш шаблон, чтобы удалить соответствующий элемент
     const chatElement = document.querySelector(`[data-message-id="${messageId}"]`);
     if (chatElement) {
@@ -195,39 +233,51 @@ async handleDeleteUser(messageId: any){
 }
 
 
-handleChatClick(messageId: any) {
+ handleChatClick(messageId: any) {
+    console.log("handleChatClick called with messageId:", messageId);
     const chat = this.props.messages.find((chat: any) => chat.id === Number(messageId));
-    console.log(chat);
+    
+    store.set('mesId',messageId)
+    store.set('final',[{1234124:'Vanya'}])
+    const usersArray = ChatController.getIdsChat(messageId)
+    console.log(usersArray)
+    ChatController.getWsToken(messageId)
+    
     const messageIElement = document.querySelector('.chat-message-item.chat-message-received') as HTMLElement;
     const buttonContainer = document.querySelector('.button-container') as HTMLElement;
     const deleteMainWordElement = document.querySelector('.delete-main-word') as HTMLElement;
 
     if (messageIElement && buttonContainer && deleteMainWordElement) {
-        if (chat) {
-            // Если чат выбран, обновляем сообщение и показываем кнопки
-            messageIElement.textContent = `${chat.last_message.user.login} : ${chat.last_message.content}`;
+        if (chat && chat.last_message) {
+            const userLogin = chat.last_message.user ? chat.last_message.user.login : 'Unknown User';
+            const content = chat.last_message.content || 'No message content';
+            
+         
             messageIElement.removeAttribute('data-message-id');
             messageIElement.setAttribute('data-message-id', messageId);
             messageIElement.classList.remove('chat-message-item-hidden');
+            messageIElement.textContent = `${userLogin} : ${content}`;
 
-            // Показываем кнопки
             buttonContainer.classList.remove('button-container-hidden');
-            
-            // Скрываем 'delete-main-word' элемент
             deleteMainWordElement.style.display = 'none';
-
             this.selectedMessageId = messageId;
+           
         } else {
-            // Если чат не выбран, скрываем кнопки и показываем 'delete-main-word' элемент
+            console.log('No valid chat or message:', chat);
+
+            messageIElement.removeAttribute('data-message-id');
+            messageIElement.setAttribute('data-message-id', messageId);
+            messageIElement.classList.remove('chat-message-item-hidden');
             messageIElement.textContent = 'No message available for this chat.';
-            buttonContainer.classList.add('button-container-hidden');
-            deleteMainWordElement.style.display = 'block';
+
+            buttonContainer.classList.remove('button-container-hidden');
+            deleteMainWordElement.style.display = 'none';
+            this.selectedMessageId = messageId;
+           
         }
     }
-    // console.log(this.props,"this.props.")
+       
 }
-
-
     componentDidMount(): void {
     ChatController.getChat()
   }
@@ -238,23 +288,29 @@ render() {
         const chatDelete = template.querySelectorAll('.chat-delete');
         chatDelete.forEach((chatElement) => {
             const messageId = chatElement.getAttribute('data-message-id');
-            chatElement.addEventListener('click', () => this.handleDeleteClick(messageId));
-            
+            chatElement.addEventListener('click', () => this.handleDeleteClick(messageId)); 
         });
         chatElements.forEach((chatElement) => {
             const messageId = chatElement.getAttribute('data-message-id');
             chatElement.addEventListener('click', () => this.handleChatClick(messageId));
-            
         });
-
         return template;
     }
 
 }
 
 const mapStateToProps = (state: IState) => ({
-  messages: state.messages
-})
+  messages: state.messages,
+  wsMessage: state.wsMessage ? state.wsMessage.map((message: WSMessage) => {
+    const foundUser = state.xFiles?.find((user:any) => user.id === message.user_id);
+    const name = foundUser ? foundUser.login : "Фиксик";
+    const isSentMessage = message.user_id === state.user.id; // Проверка, отправлено ли сообщение текущим пользователем
+    return { ...message, name, isSentMessage };
+  }) : [],
+  mesId: state.mesId,
+  xFiles: state.xFiles,
+});
+
 
 export const Chat = withStore(mapStateToProps)(BaseChat)
 

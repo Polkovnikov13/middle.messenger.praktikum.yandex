@@ -3,12 +3,16 @@ import { EventBus } from "../EventBus";
 import { set } from "../../utils";
 import Block from "../Block";
 import { IMessage } from "../../api/ChatApi";
+import { WSMessage } from "../../api/ChatWS";
+
 
 export interface IState {
     user?: IUser;
-    messages?: IMessage[]
+    messages?: IMessage[];
+    wsMessage?: WSMessage | undefined;
+    mesId?: number;
+    xFiles?: IUser[];
 }
-
 
 enum StoreEvents {
 Update = "Update"
@@ -24,7 +28,7 @@ class Store extends EventBus {
     }
 
     getState(): IState{
-    //console.log("getState",this.state);
+    console.log(this.state.mesId,'STOREEEEE');
     return this.state;
     }
 
@@ -45,7 +49,6 @@ export const withStore = (mapStateToProps : (data: IState) => any)=> {
 
             store.on(StoreEvents.Update, ()=> {
             const newProps = mapStateToProps(store.getState());
-
             this.setProps(newProps);
             })
         }

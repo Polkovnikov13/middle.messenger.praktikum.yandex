@@ -14,7 +14,7 @@ interface InputProps {
 
   class: string
   id?: string
-  placeholder: string
+  placeholder?: string
   events?: {
     focus?: () => void;
     blur?: () => void; 
@@ -25,11 +25,15 @@ export class Input extends Block {
   constructor(props: InputProps) {
     super('input', props)
     
+    
     this.element!.classList.add(props.class);
-    this.element!.setAttribute('placeholder', props.placeholder);
+    this.element!.setAttribute('placeholder', props.placeholder || '');
     this.element!.setAttribute('name', props.name);
     this.element!.setAttribute('type', props.type);
-    this.element!.setAttribute('accept', props.accept || '')
+    this.element!.setAttribute('accept', props.accept || '');
+
+    (this.element! as HTMLInputElement).value = props.value || '';
+
     if (props.events?.change) {
       this.element!.addEventListener('change', props.events.change);
     }
@@ -41,7 +45,7 @@ export class Input extends Block {
 
   clearInput() {
     if (this.element instanceof HTMLInputElement) {
-      this.element.value = ''; // Set the input field value to an empty string
+      this.element.value = '';
     }
   }
 

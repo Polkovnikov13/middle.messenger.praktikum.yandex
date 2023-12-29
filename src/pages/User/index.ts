@@ -7,6 +7,7 @@ import { Avatar } from '../../components/Avatar'
 import Block from '../../core/Block'
 import { Button } from '../../components/Button';
 import { IState, store, withStore } from '../../core/Store';
+import { RESOURSES_URL } from '../../core/HTTPTransport';
 
 export class BaseUser extends Block {
   constructor () {
@@ -32,11 +33,11 @@ export class BaseUser extends Block {
       events: { click: () => { AuthContoller.logout() } }
      });
     this.children.avaAvatar = new Avatar({
-      imageName: `https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}`,
+      imageName: `${RESOURSES_URL}${this.props.avatar}`,
       imageText: 'no photo',
       imageClass: 'user-avatar',
 });
-    console.log(this.props)
+
   }
 
     componentDidMount(): void {

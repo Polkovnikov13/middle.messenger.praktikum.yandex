@@ -1,4 +1,5 @@
 import Handlebars from 'handlebars';
+import { RESOURSES_URL } from '../../core/HTTPTransport';
 
 Handlebars.registerHelper('formatTime', function (dateTime) {
     const date = new Date(dateTime);
@@ -9,52 +10,92 @@ Handlebars.registerHelper('formatTime', function (dateTime) {
 });
 
 export const tmpl = `
+
 <div class="chat-container">
-    <div class="chat-chats">
-        <div class="home-user-link"> 
-            {{{userPageLink}}}
-        </div>
-        <div class="chat-message-input">
-            {{{inputDialog}}}
-        </div>
-        <div class="chat-message-input">
-            {{{inputCreateChat}}}
-            {{{createMessageButtonButton}}}
-        </div>
-        {{#each messages}}
-            <div class="chat-chat" data-message-id="{{id}}">
-                <img src="https://ya-praktikum.tech/api/v2/resources/{{avatar}}" class='chat-chat-img' alt='no photo'/>
-                <div class="chat-info">
-                    <div class="chat-user">{{title}}</div>
-                    <div class="chat-message">{{last_message.content}}</div>
-                </div>
-                <div class="chat-time">
-                    <div class="chat-time">{{formatTime last_message.time}}</div>
-                    <button class="chat-delete" data-message-id="{{id}}">Удалить</button>
-                </div>
-            </div>
-        {{/each}}
+  <div class="chat-chats">
+    <div class="home-user-link"> 
+      {{{userPageLink}}}
     </div>
-    <div class="chat-messages">
-    <div class="delete-main-word">Выберите чат  </div>
-        <div class="chat-message-list">
-          <div class="button-container button-container-hidden">
-          {{{inputAddUser}}}
-    {{{addUserButton}}}
-    {{{inputDeleteUser}}}
-    {{{deleteUserButton}}}
+    <div class="chat-message-input">
+      {{{inputDialog}}}
+    </div>
+    <div class="chat-message-input">
+      {{{inputCreateChat}}}
+      {{{createMessageButtonButton}}}
+    </div>
+    {{#each messages}}
+      <div class="chat-chat" data-message-id="{{id}}">
+        <img src="${RESOURSES_URL}{{avatar}}" class='chat-chat-img' alt='no photo'/>
+        <div class="chat-info">
+          <div class="chat-user">{{{title}}}</div>
+          
+          {{#if last_message}}
+            {{#each last_message.messages}}
+              <div class="chat-message">{{{content}}}</div>
+            {{/each}}
+          {{else}}
+            <div class="chat-message">No messages available</div>
+          {{/if}}
+        </div>
+        <div class="chat-time">
+          {{#if last_message.time}}
+            <div class="chat-time">{{formatTime last_message.time}}</div>
+          {{/if}}
+          <button class="chat-delete" data-message-id="{{id}}">Удалить</button>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="chat-messages">
+    <div class="chat-message-list">
+      <div class="button-container">
+        <div class="user-list">
+          {{#each xFiles}}
+            <div class="user-item">{{login}}</div>
+          {{/each}}
+        </div>
+
+        {{#if mesId}}
+          <!-- Секция, которая отображается, если mesId существует -->
+          {{{inputChangeAvatar}}}
+          {{{inputAddUser}}}  
+          {{{addUserButton}}}
+          {{{inputDeleteUser}}}
+          {{{deleteUserButton}}}
+        {{else}}
+          <div class="delete-main-word">Выберите чат</div>
+        {{/if}}
+      </div>
+
+      {{#each wsMessage}}
+        <div class="chat-message-item {{#if isSentMessage}}chat-message-sent{{else}}chat-message-received{{/if}}">
+          {{{name}}}
+          : 
+          {{{content}}}
+        </div>
+      {{/each}}
+
+      {{{messageAnswer2}}}
+    </div>
+    <div class="user-list">
+      {{#each usersArray}}
+        <div class="user-item">{{login}}</div>
+      {{/each}}
+    </div>
+
+    {{#if selectedMessageId}}
+      <div class="delete-main-word">Выберите чат</div>
+    {{/if}}
+
+    <span id="chat-message-error" class="chat-message-error"></span>
+    <div class="chat-message-input">
+      {{{inputMessage}}}
+      {{{MessageButton}}}
+    </div>
+  </div>
 </div>
 
-            <div class="chat-message-item chat-message-received chat-message-item-hidden" data-message-id="0">
-    {{text}}
-</div>
-            {{{messageAnswer}}}
-        </div>
-        <span id="chat-message-error"></span>
-        <div class="chat-message-input">
-            {{{inputMessage}}}
-            {{{MessageButton}}}
-        </div>
-    </div>
-</div>
+
 `
+

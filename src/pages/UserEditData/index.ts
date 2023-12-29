@@ -7,6 +7,7 @@ import Block from '../../core/Block'
 import './userEditData.scss'
 import { UserController } from '../../controllers/UserController'
 import { IState, store, withStore } from '../../core/Store'
+import { RESOURSES_URL } from '../../core/HTTPTransport'
 
 export class BaseUserEditData extends Block {
   constructor () {
@@ -14,9 +15,9 @@ export class BaseUserEditData extends Block {
   }
 
   init () {
-  console.log(this.props)
+
     this.children.avaAvatar = new Avatar({
-      imageName: `https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}`,
+      imageName: `${RESOURSES_URL}${this.props.avatar}`,
       imageText: 'no photo',
       imageClass: 'user-avatar',
   });
@@ -93,21 +94,15 @@ export class BaseUserEditData extends Block {
       type: 'text',
       class: 'detail-value',
   });
-    this.children.saveButton = new Button({
-      type: 'submit',
+   this.children.saveButton = new Button({
+      type: 'button',
       label: 'Сохранить',
-      events: { click: () => {
-      const userData = {
-        email: this.children.inputEmail.takeValue || this.children.inputEmail.value,
-        login: this.children.inputLogin.takeValue || this.children.inputLogin.value,
-        display_name: this.children.inputDisplayName.takeValue || this.children.inputDisplayName.value,
-        first_name: this.children.inputName.takeValue || this.children.inputName.value,
-        second_name: this.children.inputSecondName.takeValue || this.children.inputSecondName.value,
-        phone: this.children.inputPhone.takeValue || this.children.inputPhone.value
-      };
-      UserController.editData(userData);
-       } },
-  });
+      events: {
+        click: () => {
+          this.handleSubmit();
+        },
+      },
+    });
   }
   
 changeAvatar(e:Event) {
@@ -193,23 +188,29 @@ changeAvatar(e:Event) {
   }
   }
 
-  handleSubmit () {
-  if(this.children.inputEmail.isValidEmail && this.children.inputLogin.isValidLogin
-  && this.children.inputName.isValidNameFirstSecondName 
-  && this.children.inputSecondName.isValidNameFirstSecondName  
-  && this.children.inputPhone.isValidPhone){
-  const formData = {
-      email: this.children.inputEmail.takeValue,
-      login: this.children.inputLogin.takeValue,
-      first_name: this.children.inputName.takeValue,
-      second_name: this.children.inputSecondName.takeValue,
-      phone: this.children.inputPhone.takeValue
-    };
-    console.log(formData, 'UserEditData')
-  } else {
-  console.log('Некорректно')
-  }  
-  
+handleSubmit() {
+    if (
+      this.children.inputEmail.isValidEmail &&
+      this.children.inputLogin.isValidLogin &&
+      this.children.inputName.isValidNameFirstSecondName &&
+      this.children.inputSecondName.isValidNameFirstSecondName &&
+      this.children.inputPhone.isValidPhone
+    ) {
+      const formData = {
+        email: this.children.inputEmail.takeValue,
+        login: this.children.inputLogin.takeValue,
+        first_name: this.children.inputName.takeValue,
+        second_name: this.children.inputSecondName.takeValue,
+        phone: this.children.inputPhone.takeValue,
+        display_name: this.children.inputDisplayName.takeValue || undefined,
+      };
+      console.log(formData, 'UserEditData');
+      // Perform the form submission
+      UserController.editData(formData);
+    } else {
+      console.log('Form validation failed');
+      // Display error messages or handle invalid form data
+    }
   }
 
   render () {

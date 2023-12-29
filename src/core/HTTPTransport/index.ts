@@ -10,7 +10,7 @@ type Options = {
   method: Method;
   data?: any;
 };
-
+export const RESOURSES_URL = "https://ya-praktikum.tech/api/v2/resources/" 
 export class HTTPTransport {
   static API_URL = 'https://ya-praktikum.tech/api/v2';
   protected endpoint: string;
@@ -59,15 +59,16 @@ export class HTTPTransport {
       xhr.open(method, url);
 
       xhr.onreadystatechange = (_e) => {
+  if (xhr.readyState === XMLHttpRequest.DONE) {
+    if (xhr.status < 400) {
+      resolve(xhr.response);
+    } else {
+      console.error(`Error (${xhr.status}): ${xhr.statusText}`);
+      reject(xhr.response);
+    }
+  }
+};
 
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          if (xhr.status < 400) {
-            resolve(xhr.response);
-          } else {
-            reject(xhr.response);
-          }
-        }
-      };
 
       xhr.onabort = () => reject({reason: 'abort'});
       xhr.onerror = () => reject({reason: 'network error'});

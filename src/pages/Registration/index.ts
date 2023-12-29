@@ -206,7 +206,6 @@ if(this.children.inputEmail.isValidEmail && this.children.inputLogin.isValidLogi
       confirm_password: this.children.inputConfirmPassword.takeValue,
     };
     AuthContoller.signup(formData)
-    console.log(formData,'registrationForm');
   } else {
   console.log("Неккоректно")
   }

@@ -7,9 +7,10 @@ export class AuthContoller {
     // eslint-disable-next-line no-useless-catch
     try {
        const user = await AuthApi.getUser();
-    //    console.log(user);
         store.set('user', user);
+      //   console.log(user,'====> user');
     } catch (err) {
+       console.log(err, 'fetchUser error');
         throw err;
     }
     }
@@ -18,7 +19,6 @@ export class AuthContoller {
     try {
        await AuthApi.signin(data)
        await this.fetchUser();
-        console.log('Зашли!')
         router.go('/messenger')
     } catch (err) {
          console.log(err, 'signIN error'); 
@@ -29,7 +29,6 @@ export class AuthContoller {
     try {
        await AuthApi.signup(data) 
        await this.fetchUser();
-
        router.go('/messenger')
     } catch (err) {
          console.log(err, 'signUP error'); 
@@ -38,10 +37,9 @@ export class AuthContoller {
 
     static async logout(){
     try {
-        await AuthApi.logout()
+     await AuthApi.logout()
         store.set('user',undefined)
         router.go('/')
-        console.log('Вышли!')
    } catch (err) {
         console.log(err, 'logout error');
     }

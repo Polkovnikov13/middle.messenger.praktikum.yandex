@@ -37,4 +37,3 @@ export const tmpl = `
   </div>
 </div>
 `
-

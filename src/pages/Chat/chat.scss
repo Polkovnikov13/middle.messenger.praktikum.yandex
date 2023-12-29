@@ -145,12 +145,16 @@
 .button-container {
     position: absolute;
     top: 20px; 
-    right: 107px;
+    right: 25px;
     display: flex;
 }
 
 .button-container-hidden {
     display: none;
+}
+
+.user-list {
+    margin-right: 30px; /* Adjust the value as needed */
 }
 
 .add-button {
@@ -183,6 +187,7 @@
     font-weight: bold;  
     text-align: center;  
     margin-top: 320px; 
+    margin-right: 450px;
     font-size: 44px; 
 }
 

@@ -43,6 +43,19 @@ class ChatApi extends API {
         return this.http.delete('/users', data);
     }
 
+     async chatAvatar(data:FormData) {
+        return this.http.put('/avatar', data);
+    }
+
+    async getIdsChats(chatId:number){
+        return this.http.get(`/${chatId}/users`)
+    }
+
+    async getConnectWsToken(chatId:number){
+        return this.http.post(`/token/${chatId}/`)
+    }
+
+
 
 }
 

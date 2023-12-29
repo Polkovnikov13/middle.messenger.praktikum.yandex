@@ -6,6 +6,7 @@ import Block from '../../core/Block'
 import './userEditPassword.scss'
 import { UserController } from '../../controllers/UserController'
 import { IState, store, withStore } from '../../core/Store'
+import { RESOURSES_URL } from '../../core/HTTPTransport'
 
 export class BaseUserEditPassword extends Block {
   constructor () {
@@ -14,7 +15,7 @@ export class BaseUserEditPassword extends Block {
 
   init () {
     this.children.avaAvatar = new Avatar({
-      imageName: `https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}`,
+      imageName: `${RESOURSES_URL}/${this.props.avatar}`,
       imageText: 'no photo',
       imageClass: 'user-avatar',
   });
@@ -56,7 +57,6 @@ export class BaseUserEditPassword extends Block {
       oldPassword: this.children.inputOldPassword.takeValue,
       newPassword: this.children.inputNewPassword.takeValue
     };
-      console.log(formData);
        UserController.editPassword(formData) 
        } },
   });
@@ -111,7 +111,7 @@ handleNewPasswordValidation() {
       newPassword: this.children.inputNewPassword.takeValue,
       newPasswordAgain: this.children.inputNewRepeatPassword.takeValue
     };
-    console.log(formData, 'Formdata Login')
+
   } else {
   console.log("Некорректно")
   }

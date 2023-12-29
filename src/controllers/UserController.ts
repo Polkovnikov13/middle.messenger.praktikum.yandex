@@ -8,9 +8,8 @@ export class UserController {
     static async editData(data: UserEdit){
         try {
             const user = await UserApi.editData(data);
-            console.log(user,'UserController')
             store.set('user', user);
-            router.go('/user')
+            router.go('/settings')
         } catch (err) {
             console.log(err, 'UserController error');  
         }
@@ -19,8 +18,7 @@ export class UserController {
     static async editPassword(data: UserEditPassword){
         try {
             const password = await UserApi.editPassword(data)
-            console.log(password,'editPassword')
-            router.go('/user')
+            router.go('/settings')
         } catch (err) {
             console.log(err, 'editPassword error');  
         }
@@ -29,7 +27,6 @@ export class UserController {
     static async editAvatar(data:FormData){
     try {
         const user = await UserApi.editAvatar(data);
-        console.log(user, "editAvatar")
         store.set('user', user);
    } catch (err) {
             console.log(err, 'editAvatar error');  
@@ -39,7 +36,7 @@ export class UserController {
       static async getUserById(id:number){
     try {
         const user = await UserApi.getUserById(id);
-        console.log(user, "getUserById")
+        console.log('USER',user);
    } catch (err) {
             console.log(err, 'getUserById error');  
         }
@@ -48,7 +45,6 @@ export class UserController {
 static async getUserByLogin(login: UserFindById): Promise<IUser[] | null> {
   try {
     const user = await UserApi.getUserByLogin(login);
-    console.log(user, "getUserByLogin");
     return user;
   } catch (err) {
     console.log(err, 'getUserByLogin error');
