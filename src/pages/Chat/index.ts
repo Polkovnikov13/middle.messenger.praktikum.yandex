@@ -212,7 +212,12 @@ handleMessageValidation() {
         // Проверяем, что сообщение не состоит только из пробелов
         if (messageContent !== '') {
             //Чтобы текст вставлялся
-            ChatWSController.sendMessage({ content: messageContent });  
+            ChatWSController.sendMessage({
+              content: messageContent,
+              map: function (_arg0: (message: WSMessage) => { name: string | undefined; content: string; type?: string | undefined; chat_id?: number | undefined; file?: string | undefined; id?: number | undefined; is_read?: boolean | undefined; time?: string | undefined; user_id?: string | undefined; }): unknown {
+                throw new Error('Function not implemented.');
+              }
+            });  
             this.children.inputMessage.clearInput();
         }
     }
@@ -304,7 +309,7 @@ const mapStateToProps = (state: IState) => ({
   wsMessage: state.wsMessage ? state.wsMessage.map((message: WSMessage) => {
     const foundUser = state.xFiles?.find((user:any) => user.id === message.user_id);
     const name = foundUser ? foundUser.login : "Фиксик";
-    const isSentMessage = message.user_id === state.user.id; // Проверка, отправлено ли сообщение текущим пользователем
+    const isSentMessage = message.user_id === state.user?.id; // Используйте опциональный оператор "?"
     return { ...message, name, isSentMessage };
   }) : [],
   mesId: state.mesId,
@@ -313,4 +318,3 @@ const mapStateToProps = (state: IState) => ({
 
 
 export const Chat = withStore(mapStateToProps)(BaseChat)
-
