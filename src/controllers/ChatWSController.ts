@@ -9,7 +9,7 @@ export class ChatWSController {
       this.closeWS();
       const { user } = store.getState();
       await ChatWS.openWS(`/${user?.id}/${chatId}/${token}`);
-      await ChatWS.sendWS({
+      ChatWS.sendWS({
         content: '0',
         type: 'get old',
         map: function (arg0: (message: WSMessage) => { name: string | undefined; content: string; type?: string | undefined; chat_id?: number | undefined; file?: string | undefined; id?: number | undefined; is_read?: boolean | undefined; time?: string | undefined; user_id?: string | undefined; }): unknown {
@@ -24,8 +24,8 @@ export class ChatWSController {
   static async sendMessage(data: WSMessage) {
     try {
       data = { ...data, type: 'message' };
-      await ChatWS.sendWS(data);
-      await ChatWS.sendWS({
+      ChatWS.sendWS(data);
+      ChatWS.sendWS({
         content: '0',
         type: 'get old',
         map: function (arg0: (message: WSMessage) => { name: string | undefined; content: string; type?: string | undefined; chat_id?: number | undefined; file?: string | undefined; id?: number | undefined; is_read?: boolean | undefined; time?: string | undefined; user_id?: string | undefined; }): unknown {
@@ -40,7 +40,7 @@ export class ChatWSController {
 
   static async closeWS() {
     try {
-      await ChatWS.closeWS();
+      ChatWS.closeWS();
     } catch (err) {
       console.log('Ошибка закрытия WebSocket-соединения: ', err);
     }
