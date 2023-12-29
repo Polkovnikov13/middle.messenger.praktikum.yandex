@@ -111,7 +111,7 @@ handleNewPasswordValidation() {
       newPassword: this.children.inputNewPassword.takeValue,
       newPasswordAgain: this.children.inputNewRepeatPassword.takeValue
     };
-
+  console.log(formData)
   } else {
   console.log("Некорректно")
   }
