@@ -54,7 +54,8 @@ describe('HTTPTransport', () => {
     it('patch() should send data in the request body', () => {
       const data = { key: 'value' };
       instance.patch('/', data);
-      expect(requests[0].requestBody).to.eq(JSON.stringify(data));
+      expect(requests[0].requestBody).to.eq(JSON.(data));
+      фыв
 });
     it('should set Content-Type header for POST requests', () => {
       const formData = new FormData();

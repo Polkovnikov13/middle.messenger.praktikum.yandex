@@ -13,15 +13,16 @@ describe('Link', () => {
     expect(element).to.be.instanceof(window.HTMLDivElement)
   });
 
-it('should set href correctly', () => {
+  it('should set href correctly', () => {
   const to = '/path';
   const link = new Link({ to });
   const element = link.element as HTMLDivElement;
-
-  expect(element.getAttribute('data-href')).to.equal(to);
+  const anchorElement = element.querySelector('a');
+  expect(anchorElement).to.not.be.null;
+  if (anchorElement) {
+    expect(anchorElement.getAttribute('href')).to.equal(to);
+  }
 });
-
-
   it('should be clickable', () => {
     const callback = sinon.stub();
     const props = {
@@ -52,7 +53,6 @@ it('should set href correctly', () => {
   const element = link.element as HTMLDivElement;
   expect(element.textContent).to.equal('');
 });
-
 
 });
 
