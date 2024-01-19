@@ -2,7 +2,6 @@
 import { expect } from 'chai';
 import sinon, { SinonFakeXMLHttpRequest, SinonFakeXMLHttpRequestStatic} from 'sinon';
 import { HTTPTransport, Method } from './index.ts';
-import { addListener } from 'process';
 
 describe('HTTPTransport', () => {
   let xhr: SinonFakeXMLHttpRequestStatic;
