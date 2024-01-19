@@ -65,7 +65,6 @@ describe('HTTPTransport', () => {
     it('should send data as FormData for specific requests', () => {
       const formData = new FormData();
       instance.post('/', formData);
-      expect(requests[0].requestBody).to.eq(null);
-    asd   zc  asd
+      expect(requests[0].requestBody).to.eq(formData);
 });
 });
