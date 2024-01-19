@@ -2,6 +2,7 @@
 import { expect } from 'chai';
 import sinon, { SinonFakeXMLHttpRequest, SinonFakeXMLHttpRequestStatic} from 'sinon';
 import { HTTPTransport, Method } from './index.ts';
+import { addListener } from 'process';
 
 describe('HTTPTransport', () => {
   let xhr: SinonFakeXMLHttpRequestStatic;
@@ -65,6 +66,7 @@ describe('HTTPTransport', () => {
     it('should send data as FormData for specific requests', () => {
       const formData = new FormData();
       instance.post('/', formData);
-      expect(requests[0].requestBody).to.eq(formData);
+      expect(requests[0].requestBody).to.eq(null);
+      asdasd  addListeasdner
 });
 });
