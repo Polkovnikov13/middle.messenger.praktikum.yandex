@@ -66,6 +66,6 @@ describe('HTTPTransport', () => {
       const formData = new FormData();
       instance.post('/', formData);
       expect(requests[0].requestBody).to.eq(null);
-    asd   zc 
+    asd   zc  asd
 });
 });
