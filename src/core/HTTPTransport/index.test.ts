@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { expect } from 'chai';
 import Sinon, { SinonFakeXMLHttpRequest, SinonFakeXMLHttpRequestStatic} from 'sinon';
 import { HTTPTransport, Method } from './index.ts';
