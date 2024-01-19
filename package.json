@@ -7,6 +7,7 @@
     "node": ">=16.18.0"
   },
   "scripts": {
+  "prepare": "husky install",
     "start": "vite build && node server.js",
     "dev": "vite --open",
     "build": "tsc && vite build",
