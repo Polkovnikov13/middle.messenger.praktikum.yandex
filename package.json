@@ -14,8 +14,7 @@
     "lint:eslint": "eslint . --ext .ts",
     "lint:stylelint": "stylelint 'src/**/*.scss'",
     "test": "mocha",
-    "pre-commit": "test lint:eslint lint:stylelint",
-    "prepare": "husky install"
+    "pre-commit": "npm run test  npm run lint:eslint  npm run lint:stylelint"
   },
   "husky": {
     "hooks": {
@@ -41,7 +40,7 @@
     "esm-loader-images": "^1.0.5",
     "esm-loader-typescript": "^1.0.6",
     "esmock": "^2.6.2",
-    "husky": "^8.0.0",
+    "husky": "^4.3.0",
     "jsdom": "^23.2.0",
     "mocha": "^10.2.0",
     "node-esm-loader": "^0.3.0",
