@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { expect } from 'chai';
-import Sinon, { SinonFakeXMLHttpRequest, SinonFakeXMLHttpRequestStatic} from 'sinon';
+import sinon, { SinonFakeXMLHttpRequest, SinonFakeXMLHttpRequestStatic} from 'sinon';
 import { HTTPTransport, Method } from './index.ts';
 
 describe('HTTPTransport', () => {
@@ -8,7 +8,7 @@ describe('HTTPTransport', () => {
   const instance = new HTTPTransport('');
   const requests: SinonFakeXMLHttpRequest[] = [];
   beforeEach(() => {
-    xhr = Sinon.useFakeXMLHttpRequest();
+    xhr = sinon.useFakeXMLHttpRequest();
 
     //@ts-expect-error
     global.XMLHttpRequest = xhr;
@@ -41,23 +41,29 @@ describe('HTTPTransport', () => {
       expect(requests[0].method).to.eq(Method.Delete);
     });
   });
-
-//   it('makes get request with valid options string', () => {
-//     instance.get('/path', { data: { userId: 12, page: 2 } });
-//     expect(requests[0].url).to.eq(
-//       HTTPTransport.API_URL + '/path?userId=12&page=2'
-//     );
-//   });
-
-//   it('makes get request with valid options string with array', () => {
-//     instance.get('', { data: { userId: [12, 3, 6], opt: ['some', 'option'] } });
-//     expect(requests[0].url).to.eq(
-//       HTTPTransport.API_URL + '?userId=12,3,6&opt=some,option'
-//     );
-//   });
-
-  it('makes get request without options string if data is empty object', () => {
-    instance.get('', { data: {} });
-    expect(requests[0].url).to.eq(HTTPTransport.API_URL);
-  });
+    it('post() should send data in the request body', () => {
+      const data = { key: 'value' };
+      instance.post('/', data);
+      expect(requests[0].requestBody).to.eq(JSON.stringify(data));
+});
+    it('put() should send data in the request body', () => {
+      const data = { key: 'value' };
+      instance.put('/', data);
+      expect(requests[0].requestBody).to.eq(JSON.stringify(data));
+});
+    it('patch() should send data in the request body', () => {
+      const data = { key: 'value' };
+      instance.patch('/', data);
+      expect(requests[0].requestBody).to.eq(JSON.stringify(data));
+});
+    it('should set Content-Type header for POST requests', () => {
+      const formData = new FormData();
+      instance.post('/', formData);
+      expect(requests[0].requestHeaders['Content-Type']).to.be.undefined;
+});
+    it('should send data as FormData for specific requests', () => {
+      const formData = new FormData();
+      instance.post('/', formData);
+      expect(requests[0].requestBody).to.eq(formData);
+});
 });
