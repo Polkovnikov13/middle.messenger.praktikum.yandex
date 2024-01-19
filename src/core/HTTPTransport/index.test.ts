@@ -41,6 +41,7 @@ describe('HTTPTransport', () => {
       expect(requests[0].method).to.eq(Method.Delete);
     });
   });
+
     it('post() should send data in the request body', () => {
       const data = { key: 'value' };
       instance.post('/', data);
@@ -54,8 +55,7 @@ describe('HTTPTransport', () => {
     it('patch() should send data in the request body', () => {
       const data = { key: 'value' };
       instance.patch('/', data);
-      expect(requests[0].requestBody).to.eq(JSON.(data));
-      фыв
+      expect(requests[0].requestBody).to.eq(JSON.stringify(data));
 });
     it('should set Content-Type header for POST requests', () => {
       const formData = new FormData();
@@ -65,6 +65,7 @@ describe('HTTPTransport', () => {
     it('should send data as FormData for specific requests', () => {
       const formData = new FormData();
       instance.post('/', formData);
-      expect(requests[0].requestBody).to.eq(formData);
+      expect(requests[0].requestBody).to.eq(12);
+      sdf
 });
 });
