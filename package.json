@@ -14,7 +14,7 @@
     "lint:eslint": "eslint . --ext .ts",
     "lint:stylelint": "stylelint 'src/**/*.scss'",
     "test": "mocha",
-    "pre-commit": "npm run test  npm run lint:eslint  npm run lint:stylelint"
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
