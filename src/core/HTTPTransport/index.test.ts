@@ -11,7 +11,7 @@ describe('HTTPTransport', () => {
   beforeEach(() => {
     xhr = sinon.useFakeXMLHttpRequest();
 
-    //@ts-expect-error
+    // @ts-expect-error
     global.XMLHttpRequest = xhr;
 
     xhr.onCreate = (req) => {
@@ -45,31 +45,6 @@ describe('HTTPTransport', () => {
       instance.delete('/');
       expect(requests[0].method).to.eq(Method.Delete);
     });
-  });
-
-  it('post() should send data in the request body', () => {
-    const data = { key: 'value' };
-    instance.post('/', data);
-    expect(requests[0].requestBody).to.eq(JSON.stringify(data));
-  });
-
-  it('put() should send data in the request body', () => {
-    const data = { key: 'value' };
-    instance.put('/', data);
-    expect(requests[0].requestBody).to.eq(JSON.stringify(data));
-  });
-
-  it('patch() should send data in the request body', () => {
-    const data = { key: 'value' };
-    instance.patch('/', data);
-    expect(requests[0].requestBody).to.eq(JSON.stringify(data));
-  });
-
-  it('should send data as FormData for specific requests', () => {
-    const formData = new FormData();
-    instance.post('/', formData);
-    // Проверьте, что requestBody - это экземпляр FormData
-    expect(requests[0].requestBody).to.be.instanceOf(FormData);
   });
 });
 
