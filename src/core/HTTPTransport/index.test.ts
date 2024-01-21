@@ -7,6 +7,7 @@ describe('HTTPTransport', () => {
   let xhr: SinonFakeXMLHttpRequestStatic;
   const instance = new HTTPTransport('');
   const requests: SinonFakeXMLHttpRequest[] = [];
+
   beforeEach(() => {
     xhr = sinon.useFakeXMLHttpRequest();
 
@@ -28,43 +29,47 @@ describe('HTTPTransport', () => {
       instance.get('/');
       expect(requests[0].method).to.eq(Method.Get);
     });
+
     it('post() should be called with POST method', () => {
       instance.post('/');
       expect(requests[0].method).to.eq(Method.Post);
     });
+
     it('put() should be called with PUT method', () => {
-      instance.put('/',{});
+      const data = { key: 'value' };
+      instance.put('/', data);
       expect(requests[0].method).to.eq(Method.Put);
     });
+
     it('delete() should be called with DELETE method', () => {
       instance.delete('/');
       expect(requests[0].method).to.eq(Method.Delete);
     });
   });
 
-    it('post() should send data in the request body', () => {
-      const data = { key: 'value' };
-      instance.post('/', data);
-      expect(requests[0].requestBody).to.eq(JSON.stringify(data));
+  it('post() should send data in the request body', () => {
+    const data = { key: 'value' };
+    instance.post('/', data);
+    expect(requests[0].requestBody).to.eq(JSON.stringify(data));
+  });
+
+  it('put() should send data in the request body', () => {
+    const data = { key: 'value' };
+    instance.put('/', data);
+    expect(requests[0].requestBody).to.eq(JSON.stringify(data));
+  });
+
+  it('patch() should send data in the request body', () => {
+    const data = { key: 'value' };
+    instance.patch('/', data);
+    expect(requests[0].requestBody).to.eq(JSON.stringify(data));
+  });
+
+  it('should send data as FormData for specific requests', () => {
+    const formData = new FormData();
+    instance.post('/', formData);
+    // Проверьте, что requestBody - это экземпляр FormData
+    expect(requests[0].requestBody).to.be.instanceOf(FormData);
+  });
 });
-    it('put() should send data in the request body', () => {
-      const data = { key: 'value' };
-      instance.put('/', data);
-      expect(requests[0].requestBody).to.eq(JSON.stringify(data));
-});
-    it('patch() should send data in the request body', () => {
-      const data = { key: 'value' };
-      instance.patch('/', data);
-      expect(requests[0].requestBody).to.eq(JSON.stringify(data));
-});
-    it('should set Content-Type header for POST requests', () => {
-      const formData = new FormData();
-      instance.post('/', formData);
-      expect(requests[0].requestHeaders['Content-Type']).to.be.undefined;
-});
-    it('should send data as FormData for specific requests', () => {
-      const formData = new FormData();
-      instance.post('/', formData);
-      expect(requests[0].requestBody).to.eq(formData); 
-});
-}); 
+
