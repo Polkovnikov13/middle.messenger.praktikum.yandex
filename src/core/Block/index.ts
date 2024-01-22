@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars'
 import { nanoid } from 'nanoid'
-import { EventBus } from '../EventBus'
+import { EventBus } from '../EventBus/index.ts'
 
 export class Block<P extends Record<string, any> = any> {
   [x: string]: any
