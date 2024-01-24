@@ -1,4 +1,5 @@
 import ChatApi, { UsersData } from "../api/ChatApi";
+import { WSMessage } from "../api/ChatWS";
 import { store } from "../core/Store";
 import { ChatWSController } from "./ChatWSController";
 
@@ -76,6 +77,24 @@ export class ChatController {
         await ChatController.getChat()
    } catch (err) {
             console.log(err, 'editAvatar error');  
+        }
+    }
+
+      static async addPhoto(data:FormData){
+      try {
+        const images = await ChatApi.addPhoto(data);
+        console.log('================================================================')
+        await console.log('images!!!',images)
+        await ChatWSController.sendPhoto({
+          content: String(images.id),
+          // eslint-disable-next-line max-len
+          map: function (_arg0: (message: WSMessage) => { name: string | undefined; content: string; type?: string | undefined; chat_id?: number | undefined; file?: string | undefined; id?: number | undefined; is_read?: boolean | undefined; time?: string | undefined; user_id?: string | undefined; }): unknown {
+            throw new Error("Function not implemented.");
+          }
+        })
+        await ChatController.getChat()
+   } catch (err) {
+            console.log(err, 'addPhoto error');  
         }
     }
 

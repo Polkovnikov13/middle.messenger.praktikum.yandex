@@ -7,7 +7,7 @@
     "node": ">=18.19.0"
   },
   "scripts": {
-    "start": "vite build && node server.js",
+    "start": "vite build && node server.js ",
     "dev": "vite --open",
     "build": "tsc && vite build",
     "preview": "vite preview",

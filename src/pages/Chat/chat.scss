@@ -54,6 +54,14 @@
     font-weight: bold;
 }
 
+.chat-image {
+    width: 350px;
+    height: 250px;
+    border-radius: 10%;
+    margin-right: 10px;
+    margin-left: 350px; 
+}
+
 .chat-message {
     color: var(--black);
 }

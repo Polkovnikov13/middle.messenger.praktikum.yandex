@@ -129,6 +129,15 @@ this.children.addUserButton = new Button({
         change: (event) => { this.changeAvatar(event); }
     },
   });
+    this.children.inputAddPhotoInChats = new Input({
+    placeholder: 'Вставить фото',
+    name: 'avatar',
+    type: 'file',
+    class: 'detail-value',
+    events: {
+        change: (event) => { this.addPhotoToChat(event); }
+    },
+  });
     this.children.messageI = new Message({
     class: "chat-message-item chat-message-received",
     text: "User 1: Hello!",
@@ -165,7 +174,6 @@ messageId = this.props.mesId
   const formData = {
     login: this.children.inputDeleteUser.takeValue
   };
-  console.log(formData);
   const res = await UserController.getUserByLogin(formData);
   if (res) { // Проверка, что res не равно nulls
     ChatController.deleteUsers({"users":[res[0].id],chatId:messageId});
@@ -190,7 +198,16 @@ messageId = this.props.mesId
     inputElement.value = '';
     this.children.inputChangeAvatar.setProps({ placeholder: 'Выберите файл' });
     },2000)
-    
+}
+   //Фото уже попадает в массив сокет сообщений(осталось прочитать его)
+    async addPhotoToChat(e:Event) {
+    const inputElement = e.target as HTMLInputElement;
+     if (inputElement.files) {
+        const formData = new FormData();
+        const file = inputElement.files[0];
+        formData.append('resource', file);
+        await ChatController.addPhoto(formData) 
+     }
 }
 
 handleMessageValidation() {
@@ -198,7 +215,7 @@ handleMessageValidation() {
     ChatController.getChat();
     const errorMessage = document.getElementById('chat-message-error');
     const messageContent = this.children.inputMessage.takeValue.trim(); // Получаем текст сообщения и удаляем пробелы с обеих сторон
-
+    console.log(messageContent)
     if (!this.children.inputMessage.isValidMessage || messageContent === '') {
         if (errorMessage) { 
             errorMessage.classList.remove('visible'); 
@@ -243,7 +260,6 @@ handleDeleteClick(messageId: any) {
     const chat = this.props.messages.find((chat: any) => chat.id === Number(messageId));
     
     store.set('mesId',messageId)
-    store.set('final',[{1234124:'Vanya'}])
     const usersArray = ChatController.getIdsChat(messageId)
     console.log(usersArray)
     ChatController.getWsToken(messageId)

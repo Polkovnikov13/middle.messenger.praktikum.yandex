@@ -69,11 +69,15 @@ export const tmpl = `
       </div>
 
       {{#each wsMessage}}
+       {{#if file.path}}
+          <img src="${RESOURSES_URL}{{{file.path}}}" class='chat-image' alt='no photo'/>
+        {{else}}
         <div class="chat-message-item {{#if isSentMessage}}chat-message-sent{{else}}chat-message-received{{/if}}">
           {{{name}}}
           : 
           {{{content}}}
         </div>
+         {{/if}}
       {{/each}}
 
       {{{messageAnswer2}}}
@@ -91,11 +95,10 @@ export const tmpl = `
     <span id="chat-message-error" class="chat-message-error"></span>
     <div class="chat-message-input">
       {{{inputMessage}}}
+      {{{inputAddPhotoInChats}}}
       {{{MessageButton}}}
     </div>
   </div>
 </div>
-
-
 `
 
