@@ -166,6 +166,7 @@ async handleAddUser(messageId:any) {
   // Clear the inputAddUser field
   this.children.inputAddUser.clearInput();
   console.log("this.selectedMessageId after handleAddUser:", this.selectedMessageId);
+  // Добавить отрисовку сразу пользователя чата
 }
 
 async handleDeleteUser(messageId:any){
@@ -199,7 +200,7 @@ messageId = this.props.mesId
     this.children.inputChangeAvatar.setProps({ placeholder: 'Выберите файл' });
     },2000)
 }
-   //Фото уже попадает в массив сокет сообщений(осталось прочитать его)
+
     async addPhotoToChat(e:Event) {
     const inputElement = e.target as HTMLInputElement;
      if (inputElement.files) {

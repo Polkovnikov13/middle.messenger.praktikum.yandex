@@ -25,7 +25,11 @@ export const tmpl = `
     </div>
     {{#each messages}}
       <div class="chat-chat" data-message-id="{{id}}">
-        <img src="${RESOURSES_URL}{{avatar}}" class='chat-chat-img' alt='no photo'/>
+         {{#if avatar}}
+       <img src="${RESOURSES_URL}{{avatar}}" class='chat-chat-img' alt='no photo'/>
+       {{else}}
+      <img src="../../assets/avatars/avatar.jpg" class='chat-chat-img' alt='no photo'/>
+      {{/if}}
         <div class="chat-info">
           <div class="chat-user">{{{title}}}</div>
           

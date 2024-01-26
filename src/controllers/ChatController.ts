@@ -20,6 +20,7 @@ export class ChatController {
         try { 
           const answer = await ChatApi.createChat(NameOfChat);
           console.log(answer);
+          ChatApi.chatAvatar
         } catch (err) {
           console.log(err,'ChatApi error');  
         }
